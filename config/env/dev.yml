@@ -1,0 +1,99 @@
+application:
+  domain: localhost:8009
+  host: 0.0.0.0
+  ishttps: false
+  mode: develop
+  name: office
+  port: "8008"
+  readtimeout: 2
+  writertimeout: 1
+database:
+  dbtype: mysql
+  host: 127.0.0.1
+  name: office_aid
+  password: ""
+  port: "3306"
+  username: root
+  maxidleconn: 50
+  maxopenconn: 25
+  maxlifeseconds: 30
+email:
+  alias: office
+  host: smtp.163.com
+  pass: your password
+  port: 465
+  user: fdevops@163.com
+gorm:
+  logmode: 0
+jwt:
+  secret: office
+  timeout: 86400
+log:
+  sql: 2
+  compress: 2
+  consolestdout: 1
+  filestdout: 1
+  level: debug
+  localtime: 1
+  maxage: 30
+  maxbackups: 300
+  maxsize: 64
+  path: ./logs/office_client_
+public:
+  islocation: 0
+redis:
+  addr: 127.0.0.1:6379
+  password:
+  db: 1
+  db_prefix: ""
+  cache_db: 0
+  cache_prefix: "office_aid_dtp_cache:"
+ssl:
+  key: keystring
+  pem: temp/pem.pem
+news:
+  fsurl: "https://open.feishu.cn/open-apis/bot/v2/hook/6d04948c-0dfd-4ef0-a2b2-bc27ebcb107a"
+upgrade:
+  allow: 1
+  dailynum: "300"
+  newver: "1.0.0.8"
+  channel: "94"
+office:
+  rate: 2
+  limit_prefix: "office_assistant:limiter"
+  configure:
+    websocket: [ "ws://websocket.officeaid.com/ws" ]
+    logs:
+      action: [ "*" ]
+      from: [ "*" ]
+    users:
+      polltime: 2
+    pay:
+      polltime: 2
+    urls:
+      zttyhelp: "https://www.officeaid.com/ztty_help.html"
+      dltyhelp: "https://www.officeaid.com/dlty_help.html"
+      ystyhelp: "https://www.officeaid.com/ysty_help.html"
+      xhhelp: "https://www.officeaid.com/xh_help.html"
+      h5new: "http://v3client.page.officeaid.com/index_new.html"
+      h5pay: "http://v3client.page.officeaid.com/pay_super.html"
+      h5resUrl: "http://library.page.officeaid.com/home/index"
+      h5menu: "http://library.page.officeaid.com/new_window/index"
+      addindll: "http://download.officeaid.com/client/OfficeAddin1017.dll"
+      addindll64: "http://download.officeaid.com/client/OfficeAddin101764.dll"
+      ishejipay: "http://isheji.pay.officeaid.com/pay_asj.html"
+      ishejipage: "http://isheji.page.officeaid.com"
+      ishejiweb: "https://dongliang-isj-pc.wxbjq.top/"
+    client:
+      newpagepop: 1
+      position: 1
+      ishejimeal: [29, 30]
+### 爱设计请求需要参数
+isheji:
+  apikey: "63a948e3b581c"
+  secret: "NqgEnqC5q5oTyyoNWwn0x3RtJuWZYfgX"
+  vipurl: "https://dongliang-isj-pc.wxbjq.top/api/office/union_vip"
+  refundurl: "https://dongliang-isj-pc.wxbjq.top/api/office/refund_order_sync"
+  loginurl: "https://dongliang-isj-pc.wxbjq.top/api/office/user_login"
+  setmeal: ["29", "30"]
+  domain: "https://office-isj-pc.wxbjq.top"
