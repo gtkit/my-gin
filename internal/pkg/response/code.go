@@ -5,6 +5,7 @@ import (
 )
 
 const (
+	Success            = 200
 	ServerError        = 10101
 	TooManyRequests    = 10102
 	ParamBindError     = 10103
@@ -35,33 +36,9 @@ const (
 	AuthorizedCreateAPIError = 20106
 	AuthorizedListAPIError   = 20107
 	AuthorizedDeleteAPIError = 20108
-
-	AdminCreateError             = 20201
-	AdminListError               = 20202
-	AdminDeleteError             = 20203
-	AdminUpdateError             = 20204
-	AdminResetPasswordError      = 20205
-	AdminLoginError              = 20206
-	AdminLogOutError             = 20207
-	AdminModifyPasswordError     = 20208
-	AdminModifyPersonalInfoError = 20209
-	AdminMenuListError           = 20210
-	AdminMenuCreateError         = 20211
-	AdminOfflineError            = 20212
-	AdminDetailError             = 20213
-
-	MenuCreateError       = 20301
-	MenuUpdateError       = 20302
-	MenuListError         = 20303
-	MenuDeleteError       = 20304
-	MenuDetailError       = 20305
-	MenuCreateActionError = 20306
-	MenuListActionError   = 20307
-	MenuDeleteActionError = 20308
-
-	CronCreateError  = 20401
-	CronUpdateError  = 20402
-	CronListError    = 20403
-	CronDetailError  = 20404
-	CronExecuteError = 20405
 )
+
+func Text(code uint32) string {
+
+	return Msg[code]
+}

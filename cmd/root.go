@@ -11,6 +11,7 @@ import (
 	"ydsd_gin/config/setup"
 	"ydsd_gin/internal/dao"
 	"ydsd_gin/internal/pkg/env"
+	jwt "ydsd_gin/tools/jwtauth"
 	"ydsd_gin/tools/logger"
 )
 
@@ -23,6 +24,8 @@ var rootCmd = &cobra.Command{
 		setup.Initialize()
 		// 初始化 logger
 		logger.Init()
+		// 初始化 jwt
+		jwt.InitJwt()
 		// 链接数据库
 		dao.New()
 

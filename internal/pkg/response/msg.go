@@ -1,6 +1,7 @@
 package response
 
 var Msg = map[uint32]string{
+	Success:            "success",
 	ServerError:        "内部服务器错误",
 	TooManyRequests:    "请求过多",
 	ParamBindError:     "参数信息错误",
@@ -31,33 +32,4 @@ var Msg = map[uint32]string{
 	AuthorizedCreateAPIError: "创建调用方 API 地址失败",
 	AuthorizedListAPIError:   "获取调用方 API 地址列表失败",
 	AuthorizedDeleteAPIError: "删除调用方 API 地址失败",
-
-	AdminCreateError:             "创建管理员失败",
-	AdminListError:               "获取管理员列表失败",
-	AdminDeleteError:             "删除管理员失败",
-	AdminUpdateError:             "更新管理员失败",
-	AdminResetPasswordError:      "重置密码失败",
-	AdminLoginError:              "登录失败",
-	AdminLogOutError:             "退出失败",
-	AdminModifyPasswordError:     "修改密码失败",
-	AdminModifyPersonalInfoError: "修改个人信息失败",
-	AdminMenuListError:           "获取管理员菜单授权列表失败",
-	AdminMenuCreateError:         "管理员菜单授权失败",
-	AdminOfflineError:            "下线管理员失败",
-	AdminDetailError:             "获取个人信息失败",
-
-	MenuCreateError:       "创建菜单失败",
-	MenuUpdateError:       "更新菜单失败",
-	MenuDeleteError:       "删除菜单失败",
-	MenuListError:         "获取菜单列表失败",
-	MenuDetailError:       "获取菜单详情失败",
-	MenuCreateActionError: "创建菜单栏功能权限失败",
-	MenuListActionError:   "获取菜单栏功能权限列表失败",
-	MenuDeleteActionError: "删除菜单栏功能权限失败",
-
-	CronCreateError:  "创建后台任务失败",
-	CronUpdateError:  "更新后台任务失败",
-	CronListError:    "获取定时任务列表失败",
-	CronDetailError:  "获取定时任务详情失败",
-	CronExecuteError: "手动执行定时任务失败",
 }

@@ -85,12 +85,3 @@ office:
     client:
       newpagepop: 1
       position: 1
-### 爱设计请求需要参数
-isheji:
-  apikey: "63a948e3b581c"
-  secret: "NqgEnqC5q5oTyyoNWwn0x3RtJuWZYfgX"
-  vipurl: "https://v353-isj-pc.wxbjq.top/api/office/union_vip"
-  refundurl: "https://v353-isj-pc.wxbjq.top/api/office/refund_order_sync"
-  loginurl: "https://v353-isj-pc.wxbjq.top/api/office/user_login"
-  setmeal: ["29", "30"]
-  domain: "https://v353-isj-pc.wxbjq.top/"
