@@ -25,6 +25,7 @@ func init() {
 }
 
 // 需要生成结构体的数据表
+
 var tables = []string{
 	"assistant_members",
 	"assistant_orders",

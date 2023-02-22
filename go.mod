@@ -12,10 +12,13 @@ require (
 	github.com/go-playground/validator/v10 v10.11.1
 	github.com/google/uuid v1.1.2
 	github.com/json-iterator/go v1.1.12
+	github.com/olivere/elastic/v7 v7.0.32
 	github.com/spf13/cast v1.5.0
 	github.com/spf13/cobra v1.6.1
 	github.com/spf13/viper v1.15.0
-	gitlab.superjq.com/go-tools/goerr v0.0.0-20230209065424-6e3cf0ffcc0c
+	gitlab.superjq.com/go-tools/encry v0.0.0-20230206123031-ee07b4543fd2
+	gitlab.superjq.com/go-tools/goerr v0.0.0-20230222075632-62bd1c7871f2
+	gitlab.superjq.com/go-tools/goes v0.0.0-20221125093025-a44cdf152a98
 	gitlab.superjq.com/go-tools/golimit v0.0.0-20221104074712-499138a5cac0
 	gitlab.superjq.com/go-tools/logger v0.0.0-20230203102044-52358767d133
 	gitlab.superjq.com/go-tools/orm v0.0.0-20230221110304-eaeae3976c55
@@ -54,7 +57,6 @@ require (
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
-	github.com/olivere/elastic/v7 v7.0.32 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.6 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/prometheus/client_golang v1.9.0 // indirect
@@ -69,8 +71,6 @@ require (
 	github.com/tklauser/go-sysconf v0.3.6 // indirect
 	github.com/tklauser/numcpus v0.2.2 // indirect
 	github.com/ugorji/go/codec v1.2.7 // indirect
-	gitlab.superjq.com/go-tools/encry v0.0.0-20230206123031-ee07b4543fd2 // indirect
-	gitlab.superjq.com/go-tools/goes v0.0.0-20221125093025-a44cdf152a98 // indirect
 	gitlab.superjq.com/go-tools/news v0.0.0-20221101085330-a5c43ab11c05 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect

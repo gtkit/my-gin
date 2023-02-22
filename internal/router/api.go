@@ -10,7 +10,7 @@ func ApiRouter(r *gin.RouterGroup) {
 
 	v1 := r.Group("/v1")
 	{
-		v1.GET("/ping", json(apis.Ping)) // ping 接口
+		v1.GET("/ping", apis.Ping) // ping 接口
 
 	}
 

@@ -14,7 +14,6 @@ var _ Dao = (*dao)(nil)
 type Dao interface {
 	Mdb() *gorm.DB         // mysql 数据库
 	Rdb() *rdb.Redisclient // redis
-	Es() *elastic.Client
 	Close() error
 	d()
 }
@@ -30,10 +29,6 @@ func (d *dao) Mdb() *gorm.DB {
 
 func (d *dao) Rdb() *rdb.Redisclient {
 	return d.rdb
-}
-
-func (d *dao) Es() *elastic.Client {
-	return d.es
 }
 
 func (d *dao) Close() error {
@@ -58,7 +53,6 @@ func New() {
 	daoDB = &dao{
 		rdb: initRedis(),
 		mdb: initMysql(),
-		es:  initEsClient(),
 	}
 
 }

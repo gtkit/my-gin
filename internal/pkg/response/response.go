@@ -4,42 +4,74 @@ import (
 	"fmt"
 	"net/http"
 	"sync"
+
+	"github.com/gin-gonic/gin"
+	"gitlab.superjq.com/go-tools/goerr"
+)
+
+//go:generate stringer -type ErrCode -linecomment
+
+type ErrCode int // 错误码
+
+const (
+	Success     ErrCode = 200 // success
+	RequestFail ErrCode = 101 // 请求失败
 )
 
 type resResult struct {
-	Code    uint32      `json:"code"`
+	Code    ErrCode     `json:"code"`
 	Message string      `json:"msg"`
 	Data    interface{} `json:"data"`
-}
-
-type Response struct {
-	HttpStatus int
-	Res        resResult
 }
 
 // 为了提高效率我们可以使用一个Pool
 var pool = sync.Pool{
 	New: func() interface{} {
 		fmt.Println("----new Response pool----")
-		return &Response{}
+		return &resResult{}
 	},
 }
 
 // 定义自己的返回code
-func NewResponse(status int, code uint32, data interface{}) *Response {
-	response := pool.Get().(*Response)
-	response.HttpStatus = status
-	response.Res.Code = code
-	response.Res.Message = Text(code)
-	response.Res.Data = data
+func NewResponse(code ErrCode, msg string, data interface{}) *resResult {
+	response := pool.Get().(*resResult)
+
+	response.Code = code
+	response.Message = msg
+	response.Data = data
 
 	return response
 }
 
-func PutResponse(r *Response) {
-	pool.Put(r)
+func Ok(c *gin.Context, data interface{}) {
+	res := NewResponse(Success, Success.String(), data)
+	c.SecureJSON(http.StatusOK, res)
+	PutResponse(res)
 }
 
-func ResponseOk(code uint32, data interface{}) *Response {
-	return NewResponse(http.StatusOK, code, data)
+func Fail(c *gin.Context) {
+	res := NewResponse(RequestFail, RequestFail.String(), [0]int{})
+	c.SecureJSON(http.StatusOK, res)
+	PutResponse(res)
+}
+
+func Error(c *gin.Context, code goerr.ErrCode, err error) {
+	res := NewResponse(ErrCode(code.Code), err.Error(), [0]int{})
+	c.SecureJSON(code.HTTPCode, res)
+	PutResponse(res)
+}
+
+func NotFoundError(c *gin.Context, errmsg string) {
+	res := NewResponse(http.StatusNotFound, errmsg, [0]int{})
+	c.SecureJSON(http.StatusNotFound, res)
+	PutResponse(res)
+}
+
+func PutResponse(r *resResult) {
+	// fmt.Println("------put response pool---")
+	r.Code = 0
+	r.Message = ""
+	r.Data = nil
+
+	pool.Put(r)
 }

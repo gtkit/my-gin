@@ -1,5 +1,5 @@
 application:
-  domain: localhost:8008
+  domain: localhost:8009
   host: 0.0.0.0
   ishttps: false
   mode: develop

@@ -39,26 +39,19 @@ func Execute() {
 }
 
 func init() {
-	fmt.Println("----cmd init-----")
 	cobra.OnInitialize(initConfig)
 
 	// 获取 flags
 	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "", "config file (default is $HOME/.ydsd_gin.yaml)")
-
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
-	fmt.Println("-------viper init with------ ", cfgFile)
 	if cfgFile == "" {
 		panic("必须指定配制文件路径")
 	}
 	// 设置环境变量
 	env.SetEnv(cfgFile)
-	fmt.Println("-------env value: ", env.Active().Value())
 
 	viper.SetConfigType("yml")
 	// 读取 embed 方式 编译文件
@@ -76,8 +69,8 @@ func initConfig() {
 	viper.WatchConfig()
 	viper.OnConfigChange(func(e fsnotify.Event) {
 		fmt.Println("config file changed: ", e.Op, e.Name)
-		fmt.Println("------redis addr", viper.GetString("redis.addr"))
 		// 重新加载配制文件
+		setup.Initialize()
 	})
 
 }

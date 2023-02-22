@@ -9,8 +9,6 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gen"
 	"gorm.io/gorm"
-
-	"ydsd_gin/internal/model"
 )
 
 const MysqlConfig = "root:@(localhost:3306)/office_aid?charset=utf8mb4&parseTime=True&loc=Local"
@@ -101,7 +99,7 @@ func TestGEN(t *testing.T) {
 
 	// 创建模型的方法,生成文件在 query 目录; 先创建结果不会被后创建的覆盖
 	g.ApplyBasic(member)
-	g.ApplyInterface(func(method model.TUserMethod) {})
+	// g.ApplyInterface(func(method model.TUserMethod) {})
 	// g.ApplyBasic(allModel...)
 
 	g.Execute()

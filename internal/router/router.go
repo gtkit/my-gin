@@ -6,6 +6,7 @@ import (
 
 	"ydsd_gin/internal/middleware"
 	"ydsd_gin/internal/pkg/env"
+	"ydsd_gin/internal/pkg/response"
 )
 
 func InitRouter() *gin.Engine {
@@ -40,11 +41,9 @@ func InitSysRouter(r *gin.Engine) {
 }
 
 func not_foundroute(c *gin.Context) {
-	c.JSON(404, "未知的路由未知的路由")
-
+	response.NotFoundError(c, "未知的路由未知的路由")
 }
 
 func not_foundmethod(c *gin.Context) {
-	c.JSON(404, "未知的请求方法未知的请求方法")
-
+	response.NotFoundError(c, "未知的请求方法未知的请求方法")
 }
