@@ -14,7 +14,8 @@ var _ Dao = (*dao)(nil)
 type Dao interface {
 	Mdb() *gorm.DB         // mysql 数据库
 	Rdb() *rdb.Redisclient // redis
-	Close() error
+	MdbClose() error       // 关闭 mysql 连接
+	RdbClose() error       // 关闭 redis 连接
 	d()
 }
 type dao struct {
@@ -31,20 +32,16 @@ func (d *dao) Rdb() *rdb.Redisclient {
 	return d.rdb
 }
 
-func (d *dao) Close() error {
+func (d *dao) MdbClose() error {
 	db, err := d.mdb.DB()
 	if err != nil {
 		return err
 	}
-	err = db.Close()
-	if err != nil {
-		return err
-	}
-	err = d.rdb.Client().Close()
-	if err != nil {
-		return err
-	}
-	return nil
+	return db.Close()
+}
+
+func (d *dao) RdbClose() error {
+	return d.rdb.Client().Close()
 }
 
 func (d *dao) d() {}
@@ -59,12 +56,4 @@ func New() {
 
 func DB() Dao {
 	return daoDB
-}
-
-func Mdb() *gorm.DB {
-	return DB().Mdb()
-}
-
-func Rdb() *rdb.Redisclient {
-	return DB().Rdb()
 }

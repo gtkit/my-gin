@@ -26,7 +26,7 @@ var rootCmd = &cobra.Command{
 		logger.Init()
 		// 初始化 jwt
 		jwt.InitJwt()
-		// 链接数据库
+		// 链接数据库, redis
 		dao.New()
 
 	},
@@ -42,7 +42,7 @@ func init() {
 	cobra.OnInitialize(initConfig)
 
 	// 获取 flags
-	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "", "config file (default is $HOME/.ydsd_gin.yaml)")
+	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "dev", "config file (default is $HOME/.ydsd_gin.yaml)")
 }
 
 // initConfig reads in config file and ENV variables if set.

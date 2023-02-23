@@ -20,7 +20,7 @@ func Run() {
 	r := router.InitRouter()
 
 	defer func() {
-		close()
+		dbclose()
 		_ = logger.Zlog().Sync()
 	}()
 
@@ -59,9 +59,13 @@ func startServe(srv *http.Server) {
 	}
 }
 
-func close() {
-	err := dao.DB().Close()
+func dbclose() {
+	err := dao.DB().MdbClose()
 	if err != nil {
-		logger.Error("mysql close db error: ", err)
+		logger.Error("mysql close  error: ", err)
+	}
+	err = dao.DB().RdbClose()
+	if err != nil {
+		logger.Error("redis close  error: ", err)
 	}
 }
