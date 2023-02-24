@@ -24,7 +24,7 @@ type resResult struct {
 	Data    interface{} `json:"data"`
 }
 
-// 为了提高效率我们可以使用一个Pool
+// 为了提高效率使用一个Pool
 var pool = sync.Pool{
 	New: func() interface{} {
 		fmt.Println("----new Response pool----")

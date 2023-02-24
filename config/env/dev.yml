@@ -46,55 +46,9 @@ redis:
   password:
   ## redis 中用到的库
   dbs: [0, 1]
-  db_prefix: ""
-  cache_db: 0
-  cache_prefix: "office_aid_dtp_cache:"
+  prefix: ""
 ssl:
   key: keystring
   pem: temp/pem.pem
 news:
   fsurl: "https://open.feishu.cn/open-apis/bot/v2/hook/6d04948c-0dfd-4ef0-a2b2-bc27ebcb107a"
-upgrade:
-  allow: 1
-  dailynum: "300"
-  newver: "1.0.0.8"
-  channel: "94"
-office:
-  rate: 2
-  limit_prefix: "office_assistant:limiter"
-  configure:
-    websocket: [ "ws://websocket.officeaid.com/ws" ]
-    logs:
-      action: [ "*" ]
-      from: [ "*" ]
-    users:
-      polltime: 2
-    pay:
-      polltime: 2
-    urls:
-      zttyhelp: "https://www.officeaid.com/ztty_help.html"
-      dltyhelp: "https://www.officeaid.com/dlty_help.html"
-      ystyhelp: "https://www.officeaid.com/ysty_help.html"
-      xhhelp: "https://www.officeaid.com/xh_help.html"
-      h5new: "http://v3client.page.officeaid.com/index_new.html"
-      h5pay: "http://v3client.page.officeaid.com/pay_super.html"
-      h5resUrl: "http://library.page.officeaid.com/home/index"
-      h5menu: "http://library.page.officeaid.com/new_window/index"
-      addindll: "http://download.officeaid.com/client/OfficeAddin1017.dll"
-      addindll64: "http://download.officeaid.com/client/OfficeAddin101764.dll"
-      ishejipay: "http://isheji.pay.officeaid.com/pay_asj.html"
-      ishejipage: "http://isheji.page.officeaid.com"
-      ishejiweb: "https://dongliang-isj-pc.wxbjq.top/"
-    client:
-      newpagepop: 1
-      position: 1
-      ishejimeal: [29, 30]
-### 爱设计请求需要参数
-isheji:
-  apikey: "63a948e3b581c"
-  secret: "NqgEnqC5q5oTyyoNWwn0x3RtJuWZYfgX"
-  vipurl: "https://dongliang-isj-pc.wxbjq.top/api/office/union_vip"
-  refundurl: "https://dongliang-isj-pc.wxbjq.top/api/office/refund_order_sync"
-  loginurl: "https://dongliang-isj-pc.wxbjq.top/api/office/user_login"
-  setmeal: ["29", "30"]
-  domain: "https://office-isj-pc.wxbjq.top"

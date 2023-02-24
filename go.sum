@@ -523,6 +523,8 @@ gitlab.superjq.com/go-tools/redis v0.0.0-20221208060922-3611aa96ff67 h1:tO6mNnH9
 gitlab.superjq.com/go-tools/redis v0.0.0-20221208060922-3611aa96ff67/go.mod h1:MImU1HymAybQptAZ00lB06l1z5nbRXWKLU+qGUHJ8bQ=
 gitlab.superjq.com/go-tools/redis v0.0.0-20230224084146-db72abf46721 h1:msbd7hE3oTmxiQlZTKDWNmlFQ30M1rX3DTa3Ey5oPdI=
 gitlab.superjq.com/go-tools/redis v0.0.0-20230224084146-db72abf46721/go.mod h1:MImU1HymAybQptAZ00lB06l1z5nbRXWKLU+qGUHJ8bQ=
+gitlab.superjq.com/go-tools/redis v0.0.0-20230224123913-4b66d06022a8 h1:FZJbcGnKo11PtSylIy2f+VqWmvhi1hNi1me22/b1sPY=
+gitlab.superjq.com/go-tools/redis v0.0.0-20230224123913-4b66d06022a8/go.mod h1:MImU1HymAybQptAZ00lB06l1z5nbRXWKLU+qGUHJ8bQ=
 go.etcd.io/bbolt v1.3.3/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.etcd.io/etcd v0.0.0-20191023171146-3cf2f69b5738/go.mod h1:dnLIgRNXwCJa5e+c6mIZCrds/GIG4ncV9HhK5PX7jPg=
 go.opencensus.io v0.20.1/go.mod h1:6WKK9ahsWS3RSO+PY9ZHZUfv2irvY6gN279GOPZjmmk=

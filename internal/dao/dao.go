@@ -61,7 +61,7 @@ func (d *dao) d() {}
 
 func New() {
 	daoDB = &dao{
-		rdb: initRedis(),
+		rdb: initRedisCollection(),
 		mdb: initMysql(),
 	}
 }
