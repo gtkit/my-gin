@@ -24,8 +24,7 @@ type SignUpParam struct {
 
 // 校验方式使用 demo
 func Shop(c *gin.Context) {
-
-	// _ = verify.Validate.Struct(model.SignUpParam{}) // 执行验证
+	_ = verify.Validate.Struct(SignUpParam{}) // 执行验证
 	verify.Validate.RegisterStructValidation(SignUpParamStructLevelValidation, SignUpParam{})
 
 	if err := verify.SelfRegisterTranslation(verify.Validate, "checkDate", "必须要晚于当前日期", CustomFunc); err != nil {

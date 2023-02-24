@@ -29,7 +29,7 @@ jwt:
   secret: office
   timeout: 86400
 log:
-  sql: 2
+  sql: 1
   compress: 2
   consolestdout: 1
   filestdout: 1
