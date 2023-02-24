@@ -29,13 +29,13 @@ func initRedis() map[int]*rdb.Redisclient {
 	// 配制 redis 不同的库
 	redisConfigs := setRedisConfigs(config.GetIntSlice("redis.dbs"))
 
-	ConnectRedis(redisConfigs)
+	connectRedis(redisConfigs)
 
 	return redisCollections
 }
 
 // ConnectRedis 连接 redis 数据库，设置全局的 Redis 对象
-func ConnectRedis(configs RedisConfigs) {
+func connectRedis(configs RedisConfigs) {
 	once.Do(func() {
 		if redisCollections == nil {
 			redisCollections = make(map[int]*rdb.Redisclient, len(redisCollections))
