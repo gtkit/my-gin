@@ -51,7 +51,6 @@ func New() {
 		rdb: initRedis(),
 		mdb: initMysql(),
 	}
-
 }
 
 func DB() Dao {
