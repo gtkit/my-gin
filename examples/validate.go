@@ -47,18 +47,16 @@ func Shop(c *gin.Context) {
 			// 	"msg": err.Error(),
 			// })
 			// app.Error(c, goerr.ErrParams, err)
-			// return
+			return
 		}
 
 		for _, v := range verify.RemoveTopStruct(errs.Translate(verify.Trans)) {
 			response.Error(c, goerr.ErrValidateParams, goerr.Custom(v))
 			return
 		}
-		for _, v := range verify.RemoveTopStruct(errs.Translate(verify.Trans)) {
-			response.Error(c, goerr.ErrValidateParams, goerr.Custom(v))
-			return
-		}
+
 	}
+	return
 
 	// app.OK(c, "success")
 
@@ -75,7 +73,8 @@ func CustomFunc(fl validator.FieldLevel) bool {
 	if date.Before(time.Now()) {
 		return false
 	}
-	return true
+	// return true
+	return false
 }
 
 // 自定义验证函数

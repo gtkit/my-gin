@@ -27,7 +27,7 @@ func New(dao dao.Dao, log *zap.SugaredLogger) Handler {
 	fmt.Println("-----begin new ctrl------")
 	return &handler{
 		log:        log,
-		repository: repository.New(dao.Mdb(), dao.Rdb()),
+		repository: repository.New(dao.Mdb(), dao.Rdb(1), dao.Rdbs()),
 	}
 }
 func (h *handler) i() {}

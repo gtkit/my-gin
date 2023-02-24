@@ -44,7 +44,8 @@ public:
 redis:
   addr: 127.0.0.1:6379
   password:
-  db: 1
+  ## redis 中用到的库
+  dbs: [0, 1]
   db_prefix: ""
   cache_db: 0
   cache_prefix: "office_aid_dtp_cache:"

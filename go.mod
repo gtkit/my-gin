@@ -21,7 +21,7 @@ require (
 	gitlab.superjq.com/go-tools/golimit v0.0.0-20221104074712-499138a5cac0
 	gitlab.superjq.com/go-tools/logger v0.0.0-20230223044814-6a3cd7e39bd5
 	gitlab.superjq.com/go-tools/orm v0.0.0-20230221110304-eaeae3976c55
-	gitlab.superjq.com/go-tools/redis v0.0.0-20221208060922-3611aa96ff67
+	gitlab.superjq.com/go-tools/redis v0.0.0-20230224084146-db72abf46721
 	go.uber.org/zap v1.24.0
 	golang.org/x/crypto v0.0.0-20221005025214-4161e89ecf1b
 	gorm.io/driver/mysql v1.4.7
