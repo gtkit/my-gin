@@ -21,7 +21,7 @@ func Run() {
 
 	defer func() {
 		dbclose()
-		_ = logger.Zlog().Sync()
+		redisclose()
 	}()
 
 	srv := &http.Server{
@@ -63,9 +63,16 @@ func dbclose() {
 	err := dao.DB().MdbClose()
 	if err != nil {
 		logger.Error("mysql close  error: ", err)
+		return
 	}
-	err = dao.DB().RdbClose()
+	logger.Info(" mysql close  success")
+
+}
+func redisclose() {
+	err := dao.DB().RdbClose()
 	if err != nil {
 		logger.Error("redis close  error: ", err)
+		return
 	}
+	logger.Info(" redis close success ")
 }

@@ -3,6 +3,7 @@ package middleware
 import (
 	"time"
 
+	"github.com/gin-contrib/requestid"
 	"github.com/gin-gonic/gin"
 	"gitlab.superjq.com/go-tools/logger"
 )
@@ -41,8 +42,9 @@ func GinLogger() gin.HandlerFunc {
 		userAgent := c.GetHeader("User-Agent")
 
 		// 日志格式
-		logger.Infof(" %s %3d %13v %15s %s %s %s %s",
+		logger.Infof(" %s %s %3d %13v %15s %s %s %s %s",
 			startTime.Format("2006-01-02 15:04:05.9999"),
+			requestid.Get(c),
 			statusCode,
 			latencyTime,
 			clientIP,
