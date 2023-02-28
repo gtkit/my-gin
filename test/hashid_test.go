@@ -5,15 +5,14 @@ import (
 	"testing"
 
 	"github.com/magiconair/properties/assert"
-
-	"ydsd_gin/tools/hash"
+	"gitlab.superjq.com/go-tools/encry/hids"
 )
 
 func TestHashid(t *testing.T) {
 	sec := "123456"
 	ids := []int{18}
 	l := 12
-	h := hash.New(sec, l)
+	h := hids.New(sec, l)
 	enid, err := h.EncodeHashids(ids)
 	if err != nil {
 		t.Error("enid err----", err)

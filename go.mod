@@ -16,7 +16,7 @@ require (
 	github.com/spf13/cast v1.5.0
 	github.com/spf13/cobra v1.6.1
 	github.com/spf13/viper v1.15.0
-	gitlab.superjq.com/go-tools/encry v0.0.0-20230206123031-ee07b4543fd2
+	gitlab.superjq.com/go-tools/encry v0.0.0-20230228120531-05e8c9aeec44
 	gitlab.superjq.com/go-tools/goerr v0.0.0-20230223084223-7fc47ffe59df
 	gitlab.superjq.com/go-tools/golimit v0.0.0-20221104074712-499138a5cac0
 	gitlab.superjq.com/go-tools/logger v0.0.0-20230223044814-6a3cd7e39bd5
