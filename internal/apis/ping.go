@@ -7,10 +7,6 @@ import (
 	"ydsd_gin/internal/pkg/response"
 )
 
-type data struct {
-	Info string `json:"info"`
-}
-
 func (h *handler) Ping(c *gin.Context) {
 
 	var m *model.AssistantMember

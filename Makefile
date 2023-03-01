@@ -1,4 +1,4 @@
-.PHONY: server gormgen linuxs
+.PHONY: server gormgen linuxs lint go.mod check-diff
 
 LocalApp=office
 LinuxApp=officeaid
@@ -16,3 +16,12 @@ linuxs:tool
 tool:
 	go vet ./...
 	gofmt -l -w .
+
+weight:
+	goweight
+
+go.mod:
+	go mod tidy -v
+
+check-diff:
+	git diff --exit-code ./go.mod # check no changes

@@ -2,7 +2,6 @@
 package dao
 
 import (
-	"github.com/olivere/elastic/v7"
 	"gitlab.superjq.com/go-tools/redis/rdb"
 	"gorm.io/gorm"
 )
@@ -22,7 +21,7 @@ type Dao interface {
 type dao struct {
 	rdb map[int]*rdb.Redisclient // redis
 	mdb *gorm.DB                 // gorm mysql
-	es  *elastic.Client
+
 }
 
 func (d *dao) Mdb() *gorm.DB {

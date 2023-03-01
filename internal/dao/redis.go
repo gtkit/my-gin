@@ -16,13 +16,13 @@ func initRedisCollection() map[int]*rdb.Redisclient {
 	)
 }
 
-func initRedis() *rdb.Redisclient {
-	// 赋值给全局变量
-	return rdb.NewRedis(
-		config.GetString("redis.addr"),
-		config.GetString("redis.password"),
-		config.GetString("redis.prefix"),
-		config.GetInt("redis.db"), // 指定单个库
-	)
-
-}
+// func initRedis() *rdb.Redisclient {
+// 	// 赋值给全局变量
+// 	return rdb.NewRedis(
+// 		config.GetString("redis.addr"),
+// 		config.GetString("redis.password"),
+// 		config.GetString("redis.prefix"),
+// 		config.GetInt("redis.db"), // 指定单个库
+// 	)
+//
+// }

@@ -9,7 +9,7 @@ import (
 )
 
 func TestHashid(t *testing.T) {
-	sec := "123456"
+	sec := "6ab6122836Tfef95f8$b"
 	ids := []int{18}
 	l := 12
 	h := hids.New(sec, l)
