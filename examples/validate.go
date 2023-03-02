@@ -8,9 +8,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"gitlab.superjq.com/go-tools/goerr"
+	"gitlab.superjq.com/go-tools/verify"
 
 	"ydsd_gin/internal/pkg/response"
-	"ydsd_gin/tools/verify"
 )
 
 type SignUpParam struct {
@@ -24,14 +24,14 @@ type SignUpParam struct {
 
 // 校验方式使用 demo
 func Shop(c *gin.Context) {
-	_ = verify.Validate.Struct(SignUpParam{}) // 执行验证
-	verify.Validate.RegisterStructValidation(SignUpParamStructLevelValidation, SignUpParam{})
+	_ = verify.Validate().Struct(SignUpParam{}) // 执行验证
+	verify.Validate().RegisterStructValidation(SignUpParamStructLevelValidation, SignUpParam{})
 
-	if err := verify.SelfRegisterTranslation(verify.Validate, "checkDate", "必须要晚于当前日期", CustomFunc); err != nil {
+	if err := verify.SelfRegisterTranslation("checkDate", "必须要晚于当前日期", CustomFunc); err != nil {
 		panic(err)
 	}
 
-	if err := verify.SelfRegisterTranslation(verify.Validate, "checkName", "名字格式不对", CheckName); err != nil {
+	if err := verify.SelfRegisterTranslation("checkName", "名字格式不对", CheckName); err != nil {
 		panic(err)
 	}
 
@@ -50,7 +50,7 @@ func Shop(c *gin.Context) {
 			return
 		}
 
-		for _, v := range verify.RemoveTopStruct(errs.Translate(verify.Trans)) {
+		for _, v := range verify.RemoveTopStruct(errs.Translate(verify.Trans())) {
 			response.Error(c, goerr.ErrValidateParams, goerr.Custom(v))
 			return
 		}
@@ -102,7 +102,7 @@ func FilterCategory(c *gin.Context) {
 
 		return
 	}
-	if err = verify.ErrorInfo("type_id", verify.Validate.Var(tid, "ne=2,ne=3,gte=1,lte=11")); err != nil {
+	if err = verify.ErrorInfo("type_id", verify.Validate().Var(tid, "ne=2,ne=3,gte=1,lte=11")); err != nil {
 
 		return
 	}

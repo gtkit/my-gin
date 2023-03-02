@@ -23,5 +23,9 @@ weight:
 go.mod:
 	go mod tidy -v
 
+go.update:
+	go get -u
+	go mod tidy -v
+
 check-diff:
 	git diff --exit-code ./go.mod # check no changes

@@ -6,6 +6,7 @@ import (
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"gitlab.superjq.com/go-tools/verify"
 
 	"ydsd_gin/config"
 	"ydsd_gin/config/setup"
@@ -28,6 +29,8 @@ var rootCmd = &cobra.Command{
 		jwt.InitJwt()
 		// 链接数据库, redis
 		dao.New()
+		// 初始化验证翻译器
+		verify.New()
 
 	},
 }
