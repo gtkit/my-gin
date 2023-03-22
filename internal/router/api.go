@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"gitlab.superjq.com/go-tools/logger"
+	"github.com/gtkit/logger"
 
 	"ydsd_gin/internal/apis"
 	"ydsd_gin/internal/dao"

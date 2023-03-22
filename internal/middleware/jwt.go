@@ -3,7 +3,7 @@ package middleware
 import (
 	"github.com/gin-gonic/gin"
 
-	"gitlab.superjq.com/go-tools/encry/jwt"
+	"github.com/gtkit/encry/jwt"
 )
 
 // JWTAuth 中间件，检查token

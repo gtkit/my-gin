@@ -1,7 +1,7 @@
 .PHONY: server gormgen linuxs lint go.mod check-diff
 
 LocalApp=office
-LinuxApp=officeaid
+LinuxApp=officekey
 
 
 server: tool
@@ -9,6 +9,9 @@ server: tool
 
 gormgen: tool
 	go build -tags=jsoniter -ldflags "-s -w" -o ${LocalApp} main.go; ./${LocalApp} gormgen  -c dev
+
+rsa: tool
+	go build -tags=jsoniter -ldflags "-s -w" -o ${LocalApp} main.go; ./${LocalApp} newrsa  -c dev -a d
 
 linuxs:tool
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -tags=jsoniter  -ldflags "-s -w" -o ${LinuxApp} main.go && upx -9 ${LinuxApp}

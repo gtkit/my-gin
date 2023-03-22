@@ -6,7 +6,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-func adddb() {
+func init() {
 	config.Add("database", func() map[string]interface{} {
 		return map[string]interface{}{
 			"dbType":         viper.GetString("database.dbtype"),

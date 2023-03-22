@@ -7,8 +7,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
-	"gitlab.superjq.com/go-tools/goerr"
-	"gitlab.superjq.com/go-tools/verify"
+	"github.com/gtkit/goerr"
+	"github.com/gtkit/verify"
 
 	"ydsd_gin/internal/pkg/response"
 )

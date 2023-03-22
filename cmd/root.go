@@ -4,9 +4,9 @@ import (
 	"fmt"
 
 	"github.com/fsnotify/fsnotify"
+	"github.com/gtkit/verify"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"gitlab.superjq.com/go-tools/verify"
 
 	"ydsd_gin/config"
 	"ydsd_gin/config/setup"

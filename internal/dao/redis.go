@@ -1,7 +1,7 @@
 package dao
 
 import (
-	"gitlab.superjq.com/go-tools/redis/rdb"
+	"github.com/gtkit/redis/rdb"
 
 	"ydsd_gin/config"
 )

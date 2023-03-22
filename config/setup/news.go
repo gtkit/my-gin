@@ -6,7 +6,7 @@ import (
 	"ydsd_gin/config"
 )
 
-func addnews() {
+func init() {
 	config.Add("news", func() map[string]interface{} {
 		return map[string]interface{}{
 			"fsurl": viper.GetString("news.fsurl"),

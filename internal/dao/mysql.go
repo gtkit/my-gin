@@ -3,10 +3,10 @@ package dao
 import (
 	"time"
 
-	"gitlab.superjq.com/go-tools/orm"
+	"github.com/gtkit/orm"
 	"gorm.io/gorm"
 
-	"gitlab.superjq.com/go-tools/logger"
+	"github.com/gtkit/logger"
 
 	"ydsd_gin/config"
 )

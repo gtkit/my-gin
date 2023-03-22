@@ -1,7 +1,7 @@
 package jwt
 
 import (
-	"gitlab.superjq.com/go-tools/encry/jwt"
+	"github.com/gtkit/encry/jwt"
 
 	"ydsd_gin/config"
 )

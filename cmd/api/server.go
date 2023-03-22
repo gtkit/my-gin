@@ -9,7 +9,7 @@ import (
 	"syscall"
 	"time"
 
-	"gitlab.superjq.com/go-tools/logger"
+	"github.com/gtkit/logger"
 
 	"ydsd_gin/internal/dao"
 	"ydsd_gin/internal/router"

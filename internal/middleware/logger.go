@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-contrib/requestid"
 	"github.com/gin-gonic/gin"
-	"gitlab.superjq.com/go-tools/logger"
+	"github.com/gtkit/logger"
 )
 
 // GinLogger 接收gin框架默认的日志

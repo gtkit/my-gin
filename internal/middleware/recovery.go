@@ -10,7 +10,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"gitlab.superjq.com/go-tools/logger"
+	"github.com/gtkit/logger"
 	"go.uber.org/zap"
 )
 

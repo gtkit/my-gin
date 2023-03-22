@@ -6,7 +6,7 @@ import (
 	"sync"
 
 	"github.com/gin-gonic/gin"
-	"gitlab.superjq.com/go-tools/goerr"
+	"github.com/gtkit/goerr"
 )
 
 //go:generate stringer -type ErrCode -linecomment

@@ -1,7 +1,7 @@
 package logger
 
 import (
-	"gitlab.superjq.com/go-tools/logger"
+	"github.com/gtkit/logger"
 
 	"ydsd_gin/config"
 )

@@ -6,7 +6,7 @@ import (
 	"ydsd_gin/config"
 )
 
-func addjwt() {
+func init() {
 	config.Add("jwt", func() map[string]interface{} {
 		return map[string]interface{}{
 			"  secret": viper.GetString("jwt.secret"),

@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"strings"
 
-	"gitlab.superjq.com/go-tools/goerr"
+	"github.com/gtkit/goerr"
 )
 
 // HasLocalIPddr 检测 IP 地址字符串是否是内网地址

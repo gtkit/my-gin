@@ -6,7 +6,7 @@ import (
 	"ydsd_gin/config"
 )
 
-func addlog() {
+func init() {
 	config.Add("log", func() map[string]interface{} {
 		return map[string]interface{}{
 			"division": viper.GetString("log.division"),

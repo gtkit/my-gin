@@ -6,7 +6,7 @@ import (
 	"ydsd_gin/config"
 )
 
-func addredis() {
+func init() {
 	config.Add("redis", func() map[string]interface{} {
 		return map[string]interface{}{
 			"addr":     viper.GetString("redis.addr"),

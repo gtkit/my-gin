@@ -6,7 +6,7 @@ import (
 	"ydsd_gin/config"
 )
 
-func addapp() {
+func init() {
 	config.Add("app", func() map[string]interface{} {
 		return map[string]interface{}{
 			"readTimeout":   viper.GetInt("application.readTimeout"),

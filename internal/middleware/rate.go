@@ -5,11 +5,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"gitlab.superjq.com/go-tools/logger"
+	"github.com/gtkit/logger"
 
 	"ydsd_gin/config"
 
-	"gitlab.superjq.com/go-tools/golimit"
+	"github.com/gtkit/golimit"
 )
 
 // IP限流器

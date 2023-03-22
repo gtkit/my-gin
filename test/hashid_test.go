@@ -4,8 +4,8 @@ package test
 import (
 	"testing"
 
+	"github.com/gtkit/encry/hids"
 	"github.com/magiconair/properties/assert"
-	"gitlab.superjq.com/go-tools/encry/hids"
 )
 
 func TestHashid(t *testing.T) {
