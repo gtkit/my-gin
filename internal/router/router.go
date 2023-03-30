@@ -7,6 +7,7 @@ import (
 	"ydsd_gin/internal/middleware"
 	"ydsd_gin/internal/pkg/env"
 	"ydsd_gin/internal/pkg/response"
+	"ydsd_gin/internal/router/v1"
 )
 
 func InitRouter() *gin.Engine {
@@ -31,7 +32,7 @@ func InitSysRouter(r *gin.Engine) {
 	g := r.Group("/api")
 	// 各个路由组
 	{
-		ApiRouter(g)
+		v1.ApiRouter(g)
 	}
 
 	// 未找到的路由
