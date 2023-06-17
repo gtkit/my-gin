@@ -45,8 +45,8 @@ log:
 public:
   islocation: 0
 redis:
-  addr: "r-bp105q0tuvu0wyv8rj.redis.rds.aliyuncs.com:6379"
-  password: "BAkeMm50jBthFC9a"
+  addr: "r-bp105q0tuvu0wrrrrj.redis.rds.com:6379"
+  password: ""
   db: 1
   db_prefix: "office_assistant_desktop_rdb:"
   cache_db: 0
