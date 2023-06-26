@@ -90,8 +90,12 @@ func gormGen() {
 	autoUpdateTimeField := gen.FieldGORMTag("update_time", "column:update_time;type:int unsigned;autoUpdateTime")
 	autoCreateTimeField := gen.FieldGORMTag("create_time", "column:create_time;type:int unsigned;autoCreateTime")
 	softDeleteField := gen.FieldType("delete_time", "soft_delete.DeletedAt")
+
+	// 自定义 json 标签, 用于生成模型结构体的字段 例如: `json:"created_at,omitempty"`
+	autoCreatedAtField := gen.FieldJSONTag("created_at", "-")
+	autoUpdatedAtField := gen.FieldJSONTag("updated_at", "-")
 	// 模型自定义选项组
-	fieldOpts := []gen.ModelOpt{jsonField, autoCreateTimeField, autoUpdateTimeField, softDeleteField}
+	fieldOpts := []gen.ModelOpt{jsonField, autoCreateTimeField, autoUpdateTimeField, softDeleteField, autoCreatedAtField, autoUpdatedAtField}
 
 	// 创建模型的结构体,生成文件在 model 目录; 先创建的结果会被后面创建的覆盖
 	// 这里创建个别模型仅仅是为了拿到`*generate.QueryStructMeta`类型对象用于后面的模型关联操作中
