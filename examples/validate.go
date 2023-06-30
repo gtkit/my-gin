@@ -51,7 +51,7 @@ func Shop(c *gin.Context) {
 		}
 
 		for _, v := range verify.RemoveTopStruct(errs.Translate(verify.Trans())) {
-			response.Error(c, goerr.ErrValidateParams, goerr.Custom(v))
+			response.Error(c, goerr.New(nil, goerr.ErrValidateParams, v))
 			return
 		}
 

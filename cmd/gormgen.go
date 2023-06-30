@@ -2,10 +2,10 @@ package cmd
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/spf13/cobra"
 	"gorm.io/gen"
+	"gorm.io/gorm"
 
 	"ydsd_gin/internal/dao"
 )
@@ -25,12 +25,12 @@ func init() {
 }
 
 // 需要生成结构体的数据表
-
 var tables = []string{
-	"assistant_members",
-	"assistant_orders",
-	"assistant_isheji_orders",
-	"assistant_isheji_menus",
+	// "assistant_members",
+	// "assistant_orders",
+	"assistant_chat_templates",
+	// "assistant_chat_question_records",
+	// "assistant_chat_prompts",
 }
 
 func gormGen() {
@@ -65,37 +65,48 @@ func gormGen() {
 
 	// 自定义字段的数据类型
 	// 统一数字类型为int64,兼容protobuf
-	dataMap := map[string]func(detailType string) (dataType string){
-		"tinyint":   func(detailType string) (dataType string) { return "int64" },
-		"smallint":  func(detailType string) (dataType string) { return "int64" },
-		"mediumint": func(detailType string) (dataType string) { return "int64" },
-		"bigint":    func(detailType string) (dataType string) { return "int64" },
-		"int":       func(detailType string) (dataType string) { return "int64" },
+	dataMap := map[string]func(detailType gorm.ColumnType) (dataType string){
+		"tinyint":   func(detailType gorm.ColumnType) (dataType string) { return "int64" },
+		"smallint":  func(detailType gorm.ColumnType) (dataType string) { return "int64" },
+		"mediumint": func(detailType gorm.ColumnType) (dataType string) { return "int64" },
+		"bigint":    func(detailType gorm.ColumnType) (dataType string) { return "int64" },
+		"int":       func(detailType gorm.ColumnType) (dataType string) { return "int64" },
 	}
 	// 要先于`ApplyBasic`执行
 	g.WithDataTypeMap(dataMap)
 
 	// 自定义模型结体字段的标签
+
 	// 将特定字段名的 json 标签加上`string`属性,即 MarshalJSON 时该字段由数字类型转成字符串类型
-	jsonField := gen.FieldJSONTagWithNS(func(columnName string) (tagContent string) {
-		toStringField := `balance, `
-		if strings.Contains(toStringField, columnName) {
-			return columnName + ",string"
-		}
-		return columnName
-	})
+	// jsonField := gen.FieldJSONTagWithNS(func(columnName string) (tagContent string) {
+	// 	toStringField := `balance, `
+	// 	if strings.Contains(toStringField, columnName) {
+	// 		return columnName + ",string"
+	// 	}
+	// 	return columnName
+	// })
+
 	// 将非默认字段名的字段定义为自动时间戳和软删除字段;
 	// 自动时间戳默认字段名为:`updated_at`、`created_at, 表字段数据类型为: INT 或 DATETIME
 	// 软删除默认字段名为:`deleted_at`, 表字段数据类型为: DATETIME
-	autoUpdateTimeField := gen.FieldGORMTag("update_time", "column:update_time;type:int unsigned;autoUpdateTime")
-	autoCreateTimeField := gen.FieldGORMTag("create_time", "column:create_time;type:int unsigned;autoCreateTime")
-	softDeleteField := gen.FieldType("delete_time", "soft_delete.DeletedAt")
+
+	// autoCreateTimeField := gen.FieldGORMTag("created_at", func(tag field.GormTag) field.GormTag {
+	// 	tag["type"] = "int unsigned"
+	// 	tag["autoCreateTime"] = ""
+	// 	tag["column"] = "created_at"
+	// 	return tag
+	// })
 
 	// 自定义 json 标签, 用于生成模型结构体的字段 例如: `json:"created_at,omitempty"`
-	autoCreatedAtField := gen.FieldJSONTag("created_at", "-")
-	autoUpdatedAtField := gen.FieldJSONTag("updated_at", "-")
+	// autoCreatedAtField := gen.FieldJSONTag("created_at", "-")
+	// autoUpdatedAtField := gen.FieldJSONTag("updated_at", "-")
 	// 模型自定义选项组
-	fieldOpts := []gen.ModelOpt{jsonField, autoCreateTimeField, autoUpdateTimeField, softDeleteField, autoCreatedAtField, autoUpdatedAtField}
+	fieldOpts := []gen.ModelOpt{
+		// jsonField,
+		// autoCreateTimeField,
+		// autoCreatedAtField,
+		// autoUpdatedAtField,
+	}
 
 	// 创建模型的结构体,生成文件在 model 目录; 先创建的结果会被后面创建的覆盖
 	// 这里创建个别模型仅仅是为了拿到`*generate.QueryStructMeta`类型对象用于后面的模型关联操作中

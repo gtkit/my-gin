@@ -4,17 +4,20 @@ package middleware
 import (
 	"time"
 
-	"github.com/gin-contrib/timeout"
 	"github.com/gin-gonic/gin"
 	"github.com/gtkit/goerr"
+
+	"github.com/gin-contrib/timeout"
 
 	"ydsd_gin/internal/pkg/response"
 )
 
-func timeoutMiddleware() gin.HandlerFunc {
+func TimeoutMiddleware() gin.HandlerFunc {
 	return timeout.New(
 		timeout.WithTimeout(30*time.Second),
 		timeout.WithHandler(func(c *gin.Context) {
+			// 在此恢复请求头
+			// c.Writer.Header().Set("X-Request-Id", c.GetHeader("X-Request-Id"))
 			c.Next()
 		}),
 		timeout.WithResponse(timeoutResponse),
@@ -23,5 +26,5 @@ func timeoutMiddleware() gin.HandlerFunc {
 }
 
 func timeoutResponse(c *gin.Context) {
-	response.Error(c, goerr.ErrTimeout, goerr.Err("http 请求超时"))
+	response.Error(c, goerr.New(nil, goerr.ErrTimeout, "http 请求超时"))
 }

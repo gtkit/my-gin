@@ -2,6 +2,7 @@
 package repository
 
 import (
+	"github.com/gtkit/goerr"
 	"github.com/gtkit/redis/rdb"
 	"gorm.io/gorm"
 
@@ -12,7 +13,7 @@ var _ Reposit = (*reposit)(nil)
 
 type Reposit interface {
 	i()
-	Ping() (*model.AssistantMember, error)
+	Ping() (*model.AssistantMember, goerr.Error)
 }
 type reposit struct {
 	mdb  *gorm.DB

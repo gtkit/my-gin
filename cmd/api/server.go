@@ -11,6 +11,7 @@ import (
 
 	"github.com/gtkit/logger"
 
+	"ydsd_gin/config"
 	"ydsd_gin/internal/dao"
 	"ydsd_gin/internal/router"
 )
@@ -25,9 +26,10 @@ func Run() {
 	}()
 
 	srv := &http.Server{
-		Addr:    ":8080",
+		Addr:    config.GetString("app.host") + ":" + config.GetString("app.port"),
 		Handler: r,
 	}
+	fmt.Println("服务启动-----", config.GetString("app.host")+":"+config.GetString("app.port"))
 
 	// 启动服务
 	go startServe(srv)

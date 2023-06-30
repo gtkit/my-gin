@@ -1,9 +1,6 @@
 package cmd
 
 import (
-	"fmt"
-
-	"github.com/fsnotify/fsnotify"
 	"github.com/gtkit/verify"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -61,19 +58,4 @@ func initConfig() {
 	if err := viper.ReadConfig(config.DoConfig()); err != nil {
 		panic(err)
 	}
-	viper.SetConfigName(cfgFile)
-	viper.AddConfigPath("./config/env")
-
-	// 读取配制文件
-	// if err := viper.ReadInConfig(); err != nil {
-	// 	fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
-	// }
-
-	viper.WatchConfig()
-	viper.OnConfigChange(func(e fsnotify.Event) {
-		fmt.Println("config file changed: ", e.Op, e.Name)
-		// 重新加载配制文件
-		setup.Initialize()
-	})
-
 }

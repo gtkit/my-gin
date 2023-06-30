@@ -5,14 +5,20 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/gtkit/goerr"
+
 	"ydsd_gin/internal/model"
 )
 
-func (r *reposit) Ping() (*model.AssistantMember, error) {
+func (r *reposit) Ping() (*model.AssistantMember, goerr.Error) {
 	var m *model.AssistantMember
 	err := r.mdb.Where("mobile_phone = ?", "15605388820").First(&m).Error
 	if err != nil {
-		return nil, err
+		return nil, goerr.New(err, goerr.ErrMysqlServer, "mysql 查询失败")
+	}
+	err = m.CreateOrUpdate(r.mdb, "id", []string{"nick_name", "mobile_phone"})
+	if err != nil {
+		return nil, goerr.New(err, goerr.ErrMysqlServer, "mysql 更新失败")
 	}
 
 	// redis 只使用一个库的时候

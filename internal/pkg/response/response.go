@@ -55,9 +55,9 @@ func Fail(c *gin.Context) {
 	PutResponse(res)
 }
 
-func Error(c *gin.Context, code goerr.ErrCode, err error) {
-	res := NewResponse(ErrCode(code.Code), err.Error(), [0]int{})
-	c.SecureJSON(code.HTTPCode, res)
+func Error(c *gin.Context, err goerr.Error) {
+	res := NewResponse(ErrCode(err.Code().Code), err.Error(), [0]int{})
+	c.SecureJSON(err.Code().HTTPCode, res)
 	PutResponse(res)
 }
 
