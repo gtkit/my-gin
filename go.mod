@@ -15,7 +15,7 @@ require (
 	github.com/gtkit/encry v1.0.2
 	github.com/gtkit/goerr v1.0.3
 	github.com/gtkit/golimit v1.0.2
-	github.com/gtkit/logger v1.0.2
+	github.com/gtkit/logger v1.0.3
 	github.com/gtkit/orm v1.0.0
 	github.com/gtkit/redis v1.0.7
 	github.com/gtkit/verify v1.0.0

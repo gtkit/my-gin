@@ -6,6 +6,7 @@ import (
 	"github.com/gin-contrib/requestid"
 	"github.com/gin-gonic/gin"
 	"github.com/gtkit/logger"
+	"go.uber.org/zap"
 )
 
 // GinLogger 接收gin框架默认的日志
@@ -42,16 +43,17 @@ func GinLogger() gin.HandlerFunc {
 		userAgent := c.GetHeader("User-Agent")
 
 		// 日志格式
-		logger.Infof(" %s %s %3d %13v %15s %s %s %s %s",
-			startTime.Format("2006-01-02 15:04:05.9999"),
-			requestid.Get(c),
-			statusCode,
-			latencyTime,
-			clientIP,
-			reqMethod,
-			reqUri,
-			query,
-			userAgent,
+		logger.ZInfo("[Gin-Logger]",
+			zap.String("startTime", startTime.Format(time.DateTime)),
+			zap.String("reqMethod", reqMethod),
+			zap.String("requestId", requestid.Get(c)),
+			zap.Int("statusCode", statusCode),
+			// zap.String("latencyTime", fmt.Sprintf("%v", latencyTime)),
+			zap.Duration("latencyTime", latencyTime),
+			zap.String("clientIP", clientIP),
+			zap.String("reqUri", reqUri),
+			zap.String("query", query),
+			zap.String("userAgent", userAgent),
 		)
 	}
 
