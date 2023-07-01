@@ -4,6 +4,8 @@ package dao
 import (
 	"github.com/gtkit/redis/rdb"
 	"gorm.io/gorm"
+
+	"ydsd_gin/config"
 )
 
 var daoDB Dao
@@ -46,8 +48,12 @@ func (d *dao) MdbClose() error {
 
 func (d *dao) RdbClose() error {
 
-	for i := 0; i < len(d.rdb); i++ {
-		err := d.rdb[i].Client().Close()
+	for _, v := range config.GetIntSlice("redis.dbs") {
+		if d.rdb[v] == nil {
+			continue
+		}
+		err := d.rdb[v].Client().Close()
+
 		if err != nil {
 			return err
 		}

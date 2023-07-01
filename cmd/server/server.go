@@ -1,4 +1,4 @@
-package api
+package server
 
 import (
 	"context"
@@ -20,16 +20,13 @@ func Run() {
 	// 初始化路由
 	r := router.InitRouter()
 
-	defer func() {
-		dbclose()
-		redisclose()
-	}()
+	defer close()
 
 	srv := &http.Server{
 		Addr:    config.GetString("app.host") + ":" + config.GetString("app.port"),
 		Handler: r,
 	}
-	fmt.Println("服务启动-----", config.GetString("app.host")+":"+config.GetString("app.port"))
+	logger.Info("服务启动-----", config.GetString("app.host")+":"+config.GetString("app.port"))
 
 	// 启动服务
 	go startServe(srv)
@@ -61,6 +58,10 @@ func startServe(srv *http.Server) {
 	}
 }
 
+func close() {
+	dbclose()
+	redisclose()
+}
 func dbclose() {
 	err := dao.DB().MdbClose()
 	if err != nil {

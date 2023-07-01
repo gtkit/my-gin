@@ -1,13 +1,11 @@
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/gtkit/logger"
 	"github.com/robfig/cron/v3"
 	"github.com/spf13/cobra"
 
-	"ydsd_gin/cmd/api"
+	"ydsd_gin/cmd/server"
 	"ydsd_gin/internal/task"
 )
 
@@ -15,9 +13,9 @@ import (
 var serverCmd = &cobra.Command{
 	Use: "server",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("server called")
+		logger.Info("server called")
 		go dotask()
-		api.Run()
+		server.Run()
 	},
 }
 

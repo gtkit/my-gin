@@ -3,7 +3,9 @@ package utils
 import (
 	"crypto/rand"
 	"io"
+	"log"
 	mathrand "math/rand"
+	"strconv"
 	"strings"
 	"time"
 
@@ -47,4 +49,11 @@ func RandomString(length int) string {
 		b[i] = letters[mathrand.Intn(len(letters))]
 	}
 	return string(b)
+}
+func StrToInt(val string) int {
+	v1, err := strconv.ParseInt(val, 10, 64)
+	if err != nil {
+		log.Println(err)
+	}
+	return int(v1)
 }
