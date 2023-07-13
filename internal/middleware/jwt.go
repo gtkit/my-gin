@@ -6,11 +6,11 @@ import (
 
 	"github.com/gtkit/encry/jwt"
 
-	"ydsd_gin/config"
 	"ydsd_gin/internal/pkg/response"
 )
 
 // JWTAuth 中间件，检查token
+
 func JWTAuth() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token := c.GetHeader("App-Token")
@@ -20,9 +20,7 @@ func JWTAuth() gin.HandlerFunc {
 			return
 		}
 
-		jwt.SetSignKey(config.GetString("jwt.secret"))
-		j := jwt.NewJWT()
-
+		j := jwt.NewJWT() // 唯一的jwt实例
 		// parseToken 解析token包含的信息
 		claims, err := j.ParseToken(token)
 		if err != nil {
@@ -31,14 +29,21 @@ func JWTAuth() gin.HandlerFunc {
 				c.Abort()
 				return
 			}
+
 			response.Error(c, goerr.New(err, goerr.ErrAuthentication, "token解析失败"))
 			c.Abort()
 			return
 		}
-		// fmt.Println("laravel prv:", claims.Prv)
+
+		if "client" != claims.JwtRole() {
+			response.Error(c, goerr.New(err, goerr.ErrAuthentication, "角色不对"))
+			c.Abort()
+			return
+		}
 
 		// 继续交由下一个路由处理,并将解析出的信息传递下去
-		c.Set("claims", claims)
+		// c.Set("claims", claims)
+		c.Set("userid", claims.JwtSubject())
 		c.Next()
 
 	}

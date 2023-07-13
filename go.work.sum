@@ -1,0 +1,3 @@
+github.com/gtkit/verify v1.0.1/go.mod h1:7CEau1oaJ66CuDXB7GLxwJNbT/WvBm7SFbYaf+bJc6k=
+github.com/shirou/gopsutil v3.20.11+incompatible h1:LJr4ZQK4mPpIV5gOa4jCOKOGb4ty4DZO54I4FGqIpto=
+github.com/ugorji/go v1.2.7 h1:qYhyWUUd6WbiM+C6JZAUkIJt/1WrjzNHY9+KCIjVqTo=

@@ -26,7 +26,6 @@ func Run() {
 		Addr:    config.GetString("app.host") + ":" + config.GetString("app.port"),
 		Handler: r,
 	}
-	logger.Info("服务启动-----", config.GetString("app.host")+":"+config.GetString("app.port"))
 
 	// 启动服务
 	go startServe(srv)
@@ -53,8 +52,20 @@ func Run() {
 
 func startServe(srv *http.Server) {
 	// 服务连接
-	if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-		fmt.Printf("listen: %s\n", err)
+	if config.GetBool("app.ishttps") {
+		logger.Infof("\u001B[32m%s\u001B[0m", "https 服务启动----->>> "+config.GetString("app.host")+":"+config.GetString("app.port"))
+		if err := srv.ListenAndServeTLS(config.GetString("ssl.pem"), config.GetString("ssl.key")); err != nil && err != http.ErrServerClosed {
+			logger.Fatalf("listen: %s\n", err)
+			return
+		}
+
+	} else {
+		logger.Infof("\u001B[32m%s\u001B[0m", "http 服务启动----->>> "+config.GetString("app.host")+":"+config.GetString("app.port"))
+		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			logger.Fatalf("listen: %s\n", err)
+			return
+		}
+
 	}
 }
 

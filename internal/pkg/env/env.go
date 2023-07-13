@@ -18,6 +18,7 @@ var _ Environment = (*environment)(nil)
 type Environment interface {
 	Value() string
 	IsDev() bool
+	IsTest() bool
 	IsPro() bool
 	t()
 }
@@ -30,10 +31,17 @@ func (e *environment) Value() string {
 	return e.value
 }
 
+// IsDev 是否是开发环境
 func (e *environment) IsDev() bool {
 	return e.value == "dev"
 }
 
+// IsTest 是否是测试环境
+func (e *environment) IsTest() bool {
+	return e.value == "test"
+}
+
+// IsPro 是否是生产环境
 func (e *environment) IsPro() bool {
 	return e.value == "pro"
 }
@@ -58,4 +66,19 @@ func SetEnv(env string) {
 // Active 当前配置的env
 func Active() Environment {
 	return active
+}
+
+// IsDev 是否是开发环境
+func IsDev() bool {
+	return active.IsDev()
+}
+
+// IsTest 是否是测试环境
+func IsTest() bool {
+	return active.IsTest()
+}
+
+// IsPro 是否是生产环境
+func IsPro() bool {
+	return active.IsPro()
 }
