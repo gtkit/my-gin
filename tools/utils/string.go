@@ -57,3 +57,26 @@ func StrToInt(val string) int {
 	}
 	return int(v1)
 }
+func B2S(bs []uint8) string {
+	b := make([]byte, len(bs))
+	for i, v := range bs {
+		b[i] = byte(v)
+	}
+	return string(b)
+}
+
+func B2I(bs []uint8) (int, error) {
+	i, err := strconv.Atoi(B2S(bs))
+	if err != nil {
+		return 0, err
+	}
+	return i, nil
+}
+
+func B2I64(bs []uint8) (int64, error) {
+	i, err := strconv.ParseInt(B2S(bs), 10, 64)
+	if err != nil {
+		return 0, err
+	}
+	return i, nil
+}
