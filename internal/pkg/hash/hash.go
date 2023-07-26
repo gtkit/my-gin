@@ -2,8 +2,7 @@
 package hash
 
 import (
-	"gohub/pkg/logger"
-
+	"github.com/gtkit/logger"
 	"golang.org/x/crypto/bcrypt"
 )
 

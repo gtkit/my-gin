@@ -15,9 +15,10 @@ require (
 	github.com/gtkit/goerr v1.0.6
 	github.com/gtkit/goes v1.0.1
 	github.com/gtkit/golimit v1.0.2
-	github.com/gtkit/logger v1.0.4
+	github.com/gtkit/gormlog v1.0.2
+	github.com/gtkit/logger v1.1.6
 	github.com/gtkit/orm v1.0.0
-	github.com/gtkit/redis v1.1.2
+	github.com/gtkit/redis v1.1.3
 	github.com/gtkit/verify v1.0.2
 	github.com/json-iterator/go v1.1.12
 	github.com/magiconair/properties v1.8.7
@@ -43,12 +44,13 @@ require (
 	github.com/golang-jwt/jwt/v5 v5.0.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
+	github.com/natefinch/lumberjack v2.0.0+incompatible // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 )
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
-	github.com/bytedance/sonic v1.10.0-rc2 // indirect
+	github.com/bytedance/sonic v1.10.0-rc3 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20230717121745-296ad89f973d // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect

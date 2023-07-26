@@ -3,6 +3,7 @@ package dao
 import (
 	"time"
 
+	"github.com/gtkit/gormlog"
 	"github.com/gtkit/orm"
 	"gorm.io/gorm"
 
@@ -25,7 +26,7 @@ func initMysql() *gorm.DB {
 	orm.GormConfig(
 		orm.PrepareStmt(true),
 		orm.SkipDefaultTransaction(true),
-		orm.GormLog(logger.NewGormLogger()), // 此处注意,日志需要先实例化
+		orm.GormLog(gormlog.L(logger.Zlog(), logger.Sql())), // 此处注意,logger日志需要先实例化
 	)
 	mydb := orm.NewMysql()
 
