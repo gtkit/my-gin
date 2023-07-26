@@ -3,6 +3,7 @@ package dao
 
 import (
 	"github.com/gtkit/redis/rdb"
+	"github.com/olivere/elastic/v7"
 	"gorm.io/gorm"
 
 	"ydsd_gin/config"
@@ -18,12 +19,13 @@ type Dao interface {
 	Rdbs() map[int]*rdb.Redisclient // 获取所有redis连接
 	MdbClose() error                // 关闭 mysql 连接
 	RdbClose() error                // 关闭 redis 连接
-	d()
+	ES() *elastic.Client            // elasticsearch 实例
+	d()                             // 防止被其他包实现
 }
 type dao struct {
 	rdb map[int]*rdb.Redisclient // redis
 	mdb *gorm.DB                 // gorm mysql
-
+	es  *elastic.Client
 }
 
 func (d *dao) Mdb() *gorm.DB {
@@ -68,9 +70,15 @@ func New() {
 	daoDB = &dao{
 		rdb: initRedisCollection(),
 		mdb: initMysql(),
+		es:  initEsClient(),
 	}
 }
 
 func DB() Dao {
 	return daoDB
+}
+
+// ES elasticsearch 实例
+func (d *dao) ES() *elastic.Client {
+	return d.es
 }

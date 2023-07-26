@@ -52,3 +52,10 @@ ssl:
   pem: temp/pem.pem
 news:
   fsurl: "https://open.feishu.cn/open-apis/bot/v2/hook/6d04948c-0dfd-4ef0-a2b2-bc27ebcb107a"
+elasticsearch:
+  host: "http://127.0.0.1"
+  port: "9200"
+  scheme: "http"
+  user: ""
+  pass: ""
+  debug: 1
