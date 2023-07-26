@@ -32,3 +32,5 @@ go.update:
 
 check-diff:
 	git diff --exit-code ./go.mod # check no changes
+check:
+	govulncheck ./...

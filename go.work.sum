@@ -1,3 +1,4 @@
+github.com/gtkit/encry v1.0.6/go.mod h1:qTbmquyxrYgUkOdEu4dz2OJDMkUyL1ryPwY0Uale+PA=
 github.com/gtkit/logger v1.1.5/go.mod h1:ro95AvKGz7wlM4wVDdZwsPrHQJY490XVmFyEwGT2nks=
 github.com/shirou/gopsutil v3.20.11+incompatible h1:LJr4ZQK4mPpIV5gOa4jCOKOGb4ty4DZO54I4FGqIpto=
 github.com/ugorji/go v1.2.7 h1:qYhyWUUd6WbiM+C6JZAUkIJt/1WrjzNHY9+KCIjVqTo=
