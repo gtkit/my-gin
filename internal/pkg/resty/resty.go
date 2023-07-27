@@ -7,7 +7,6 @@ import (
 	"github.com/go-resty/resty/v2"
 	"github.com/gtkit/logger"
 	jsoniter "github.com/json-iterator/go"
-	"go.uber.org/zap"
 )
 
 var restyClient *resty.Client
@@ -21,7 +20,7 @@ func NewClient() {
 	client.SetRetryCount(3).SetRetryWaitTime(1 * time.Second)        // 设置最大重试次数为 3 次，重试间隔时间为 1 秒钟
 	client.JSONMarshal = json.Marshal
 	client.JSONUnmarshal = json.Unmarshal
-	client.SetLogger(restylog())
+	client.SetLogger(&restyLogger{})
 
 	restyClient = client
 }
@@ -35,24 +34,17 @@ func Request() *resty.Request {
 	return restyClient.R()
 }
 
-func restylog() *restyLogger {
-	return &restyLogger{
-		log: logger.Sugar(),
-	}
-}
-
 type restyLogger struct {
-	log *zap.SugaredLogger
 }
 
 func (l *restyLogger) Errorf(format string, v ...interface{}) {
-	l.log.Errorf(format, v)
+	logger.Errorf(format, v)
 }
 func (l *restyLogger) Warnf(format string, v ...interface{}) {
-	l.log.Warnf(format, v)
+	logger.Warnf(format, v)
 }
 func (l *restyLogger) Debugf(format string, v ...interface{}) {
-	l.log.Debugf(format, v)
+	logger.Debugf(format, v)
 }
 
 // 使用教程: https://blog.csdn.net/qq_29799655/article/details/130831278
