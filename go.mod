@@ -25,7 +25,6 @@ require (
 	github.com/json-iterator/go v1.1.12
 	github.com/magiconair/properties v1.8.7
 	github.com/olivere/elastic/v7 v7.0.32
-	github.com/pkg/errors v0.9.1
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/samber/lo v1.38.1
 	github.com/sony/sonyflake v1.1.0
@@ -78,6 +77,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/natefinch/lumberjack v2.0.0+incompatible // indirect
 	github.com/pelletier/go-toml/v2 v2.0.9 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/power-devops/perfstat v0.0.0-20221212215047-62379fc7944b // indirect
 	github.com/prometheus/client_golang v1.16.0 // indirect
