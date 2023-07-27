@@ -1,7 +1,6 @@
 package sid
 
 import (
-	"github.com/pkg/errors"
 	"github.com/sony/sonyflake"
 )
 
@@ -9,18 +8,29 @@ type Sid struct {
 	sf *sonyflake.Sonyflake
 }
 
-func NewSid() *Sid {
+const (
+	base62     = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	CODE_LENTH = 31
+)
+
+var sid *Sid
+
+// NewSid 生成分布式ID
+func NewSid() {
 	sf := sonyflake.NewSonyflake(sonyflake.Settings{})
 	if sf == nil {
 		panic("sonyflake not created")
 	}
-	return &Sid{sf}
+	sid = &Sid{sf}
+}
+func Client() *Sid {
+	return sid
 }
 func (s Sid) GenString() (string, error) {
 	// 生成分布式ID
 	id, err := s.sf.NextID()
 	if err != nil {
-		return "", errors.Wrap(err, "failed to generate sonyflake ID")
+		return "", err
 	}
 	// 将ID转换为字符串
 	return IntToBase62(int(id)), nil
@@ -30,10 +40,6 @@ func (s Sid) GenUint64() (uint64, error) {
 	return s.sf.NextID()
 }
 
-const (
-	base62 = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-)
-
 func IntToBase62(n int) string {
 	if n == 0 {
 		return string(base62[0])
@@ -42,7 +48,7 @@ func IntToBase62(n int) string {
 	var result []byte
 	for n > 0 {
 		result = append(result, base62[n%62])
-		n /= 62
+		n /= CODE_LENTH
 	}
 
 	// 反转字符串

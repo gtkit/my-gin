@@ -1,3 +1,8 @@
 .idea
 logs
-office
+/config/env/test.yml
+/config/env/pro.yml
+go.work
+go.work.sum
+/workspace/
+.Ds_Store

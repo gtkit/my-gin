@@ -9,8 +9,8 @@ import (
 	"ydsd_gin/config/setup"
 	"ydsd_gin/internal/dao"
 	"ydsd_gin/internal/pkg/env"
-	jwt "ydsd_gin/tools/jwtauth"
-	"ydsd_gin/tools/logger"
+	"ydsd_gin/internal/pkg/jwtauth"
+	"ydsd_gin/internal/pkg/logger"
 )
 
 var cfgFile string
