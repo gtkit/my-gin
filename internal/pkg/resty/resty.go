@@ -30,21 +30,23 @@ func Client() *resty.Client {
 }
 
 func Request() *resty.Request {
-	logger.Info()
 	return restyClient.R()
 }
+
+// restyLogger resty logger
+var _ resty.Logger = (*restyLogger)(nil)
 
 type restyLogger struct {
 }
 
 func (l *restyLogger) Errorf(format string, v ...interface{}) {
-	logger.Errorf(format, v)
+	logger.Errorf("--ERROR RESTY "+format, v)
 }
 func (l *restyLogger) Warnf(format string, v ...interface{}) {
-	logger.Warnf(format, v)
+	logger.Warnf("--WARN RESTY "+format, v)
 }
 func (l *restyLogger) Debugf(format string, v ...interface{}) {
-	logger.Debugf(format, v)
+	logger.Debugf("--DEBUG RESTY "+format, v)
 }
 
 // 使用教程: https://blog.csdn.net/qq_29799655/article/details/130831278

@@ -77,17 +77,17 @@ func TestGEN(t *testing.T) {
 	// 软删除默认字段名为:`deleted_at`, 表字段数据类型为: DATETIME
 	// autoUpdateTimeField := gen.FieldGORMTag("update_time", "column:update_time;type:int unsigned;autoUpdateTime")
 	autoUpdateTimeField := gen.FieldGORMTag("update_time", func(tag field.GormTag) field.GormTag {
-		tag["column"] = "update_time"
-		tag["type"] = "int unsigned"
-		tag["autoUpdateTime"] = "autoUpdateTime"
+		tag["column"] = []string{"update_time"}
+		tag["type"] = []string{"int unsigned"}
+		tag["autoUpdateTime"] = []string{"autoUpdateTime"}
 
 		return tag
 	})
 	// autoCreateTimeField := gen.FieldGORMTag("create_time", "column:create_time;type:int unsigned;autoCreateTime")
 	autoCreateTimeField := gen.FieldGORMTag("create_time", func(tag field.GormTag) field.GormTag {
-		tag["column"] = "create_time"
-		tag["type"] = "int unsigned"
-		tag["autoCreateTime"] = "autoCreateTime"
+		tag["column"] = []string{"create_time"}
+		tag["type"] = []string{"int unsigned"}
+		tag["autoCreateTime"] = []string{"autoCreateTime"}
 
 		return tag
 	})

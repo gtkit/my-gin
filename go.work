@@ -9,5 +9,6 @@ use (
 	//workspace/timeout@v0.0.3
 	//workspace/requestid@v0.0.6
 	//../redis
+	//../goes
 
 )

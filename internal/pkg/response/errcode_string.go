@@ -9,19 +9,19 @@ func _() {
 	// Re-run the stringer command to generate them again.
 	var x [1]struct{}
 	_ = x[Success-200]
-	_ = x[RequestFail-101]
+	_ = x[RequestFail-10010014]
 }
 
 const (
-	_ErrCode_name_0 = "请求失败"
-	_ErrCode_name_1 = "success"
+	_ErrCode_name_0 = "success"
+	_ErrCode_name_1 = "请求失败"
 )
 
 func (i ErrCode) String() string {
 	switch {
-	case i == 101:
-		return _ErrCode_name_0
 	case i == 200:
+		return _ErrCode_name_0
+	case i == 10010014:
 		return _ErrCode_name_1
 	default:
 		return "ErrCode(" + strconv.FormatInt(int64(i), 10) + ")"
