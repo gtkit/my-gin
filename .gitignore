@@ -1,8 +1,8 @@
-.idea
-logs
+.idea/
+logs/
 /config/env/test.yml
 /config/env/pro.yml
-go.work
-go.work.sum
 /workspace/
 .Ds_Store
+deployment.sh
+.gitlab-ci.yml

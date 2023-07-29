@@ -1,8 +1,6 @@
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/gtkit/logger"
 	"github.com/robfig/cron/v3"
 	"github.com/spf13/cobra"
@@ -24,8 +22,7 @@ const _UI = `
 var serverCmd = &cobra.Command{
 	Use: "server",
 	Run: func(cmd *cobra.Command, args []string) {
-
-		fmt.Printf("\x1b[32m%s\x1b[0m", _UI)
+		logger.Infof("\x1b[32m%s\x1b[0m", _UI)
 		go dotask()
 		server.Run()
 	},
@@ -46,8 +43,7 @@ func init() {
 }
 func dotask() {
 	// 可以在这里启动定时任务,自定义日志
-	var log = &tasklog{}
-	c := cron.New(cron.WithSeconds(), cron.WithLogger(log))
+	c := cron.New(cron.WithSeconds(), cron.WithLogger(&tasklog{}))
 	c.Start()
 
 	el, err := c.AddJob("@every 120s", task.New())
@@ -58,12 +54,14 @@ func dotask() {
 	select {}
 }
 
+var _ cron.Logger = &tasklog{}
+
 type tasklog struct {
 }
 
 func (t *tasklog) Info(msg string, keysAndValues ...interface{}) {
-	logger.Infof(msg, keysAndValues...)
+	logger.Infof("[定时任务 INFO]: "+msg+"--", keysAndValues...)
 }
 func (t *tasklog) Error(err error, msg string, keysAndValues ...interface{}) {
-	logger.Errorf(msg, keysAndValues...)
+	logger.Errorf("[定时任务 ERROR]: "+msg+"--"+err.Error(), keysAndValues...)
 }
