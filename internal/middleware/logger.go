@@ -56,7 +56,7 @@ func GinLogger() gin.HandlerFunc {
 			zap.String("userAgent", userAgent),
 		)
 
-		// logger.Infof(" %s %s %3d %13v %15s %s %s %s %s",
+		// log.Infof(" %s %s %3d %13v %15s %s %s %s %s",
 		// 	startTime.Format("2006-01-02 15:04:05.9999"),
 		// 	requestid.Get(c),
 		// 	statusCode,

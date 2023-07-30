@@ -9,8 +9,8 @@ import (
 	"ydsd_gin/config/setup"
 	"ydsd_gin/internal/dao"
 	"ydsd_gin/internal/pkg/env"
-	"ydsd_gin/internal/pkg/jwtauth"
-	"ydsd_gin/internal/pkg/logger"
+	jwt "ydsd_gin/internal/pkg/jwtauth"
+	"ydsd_gin/internal/pkg/log"
 )
 
 var cfgFile string
@@ -20,8 +20,8 @@ var rootCmd = &cobra.Command{
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 		// 配置初始化
 		setup.Initialize()
-		// 初始化 logger
-		logger.Init()
+		// 初始化 log
+		log.Init()
 		// 初始化 jwt
 		jwt.InitJwt()
 		// 链接数据库, redis

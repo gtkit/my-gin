@@ -1,9 +1,11 @@
 package cmd
 
 import (
+	"context"
 	"github.com/gtkit/logger"
 	"github.com/robfig/cron/v3"
 	"github.com/spf13/cobra"
+	"ydsd_gin/internal/pkg/log"
 
 	"ydsd_gin/cmd/server"
 	"ydsd_gin/internal/task"
@@ -42,26 +44,17 @@ func init() {
 	// serverCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 func dotask() {
+	var ctx context.Context
 	// 可以在这里启动定时任务,自定义日志
-	c := cron.New(cron.WithSeconds(), cron.WithLogger(&tasklog{}))
+	c := cron.New(cron.WithSeconds(), cron.WithLogger(&log.Tasklog{}))
 	c.Start()
 
 	el, err := c.AddJob("@every 120s", task.New())
 	if err != nil {
 		logger.Error("AddJob error", el, err)
-		c.Stop()
+		ctx = c.Stop()
 	}
-	select {}
-}
-
-var _ cron.Logger = &tasklog{}
-
-type tasklog struct {
-}
-
-func (t *tasklog) Info(msg string, keysAndValues ...interface{}) {
-	logger.Infof("[定时任务 INFO]: "+msg+"--", keysAndValues...)
-}
-func (t *tasklog) Error(err error, msg string, keysAndValues ...interface{}) {
-	logger.Errorf("[定时任务 ERROR]: "+msg+"--"+err.Error(), keysAndValues...)
+	select {
+	case <-ctx.Done():
+	}
 }
