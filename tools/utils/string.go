@@ -2,27 +2,19 @@ package utils
 
 import (
 	"crypto/rand"
+	"encoding/json"
 	"io"
 	"log"
 	mathrand "math/rand"
 	"strconv"
 	"strings"
 	"time"
-
-	"golang.org/x/crypto/bcrypt"
+	"unicode"
 )
 
 // IsBlank checks whether the given string is blank.
 func IsBlank(s string) bool {
 	return strings.TrimSpace(s) == ""
-}
-func CompareHashAndPassword(e string, p string) (bool, error) {
-	err := bcrypt.CompareHashAndPassword([]byte(e), []byte(p))
-	if err != nil {
-
-		return false, err
-	}
-	return true, nil
 }
 
 // RandomNumber 生成长度为 length 随机数字字符串
@@ -79,4 +71,43 @@ func B2I64(bs []uint8) (int64, error) {
 		return 0, err
 	}
 	return i, nil
+}
+
+func CamelToSnake(camelCase string) string {
+	var result strings.Builder
+	for i, c := range camelCase {
+		if unicode.IsUpper(c) && i > 0 {
+			result.WriteByte('_')
+		}
+		result.WriteRune(unicode.ToLower(c))
+	}
+	return result.String()
+}
+
+// BigCamelToSmallCamel 大驼峰格式的字符串转小驼峰格式的字符串
+// UserAgent → userAgent
+func BigCamelToSmallCamel(bigCamel string) string {
+	if len(bigCamel) == 0 {
+		return ""
+	}
+
+	firstChar := strings.ToLower(string(bigCamel[0]))
+	return firstChar + bigCamel[1:]
+}
+
+func LowerFirst(s string) string {
+	return strings.ToLower(string(s[0]))
+}
+
+func StructToMap(data interface{}) (map[string]interface{}, error) {
+	dataBytes, err := json.Marshal(data)
+	if err != nil {
+		return nil, err
+	}
+	mapData := make(map[string]interface{})
+	err = json.Unmarshal(dataBytes, &mapData)
+	if err != nil {
+		return nil, err
+	}
+	return mapData, nil
 }

@@ -5,6 +5,7 @@ import (
 	"context"
 )
 
+//go:generate go-option -type SseClient
 type SseClient struct {
 	// This is the channel used to send messages to client
 	Id      string

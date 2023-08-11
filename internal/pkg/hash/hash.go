@@ -26,3 +26,11 @@ func BcryptIsHashed(str string) bool {
 	// bcrypt 加密后的长度等于 60
 	return len(str) == 60
 }
+func CompareHashAndPassword(e string, p string) (bool, error) {
+	err := bcrypt.CompareHashAndPassword([]byte(e), []byte(p))
+	if err != nil {
+
+		return false, err
+	}
+	return true, nil
+}

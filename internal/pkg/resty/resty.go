@@ -3,6 +3,7 @@ package resty
 import (
 	"crypto/tls"
 	"time"
+
 	"ydsd_gin/internal/pkg/log"
 
 	"github.com/go-resty/resty/v2"
@@ -29,7 +30,7 @@ func Client() *resty.Client {
 	return restyClient
 }
 
-func Request() *resty.Request {
+func R() *resty.Request {
 	return restyClient.R()
 }
 

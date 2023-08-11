@@ -19,10 +19,12 @@ rsa: tool
 linuxs:tool
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -tags=jsoniter  -ldflags "-s -w" -o ${LinuxApp} main.go && upx -9 ${LinuxApp}
 
-## vet 检查代码
-tool:
-	go vet ./...
+LINT_TARGETS ?= ./...
+tool: ## Lint Go code with the installed golangci-lint
+	@ echo "▶️ golangci-lint run"
+	golangci-lint run $(LINT_TARGETS)
 	gofmt -l -w .
+	@ echo "✅ golangci-lint run"
 
 weight:
 	goweight
@@ -37,6 +39,6 @@ go.update:
 check-diff:
 	git diff --exit-code ./go.mod # check no changes
 
-## govulncheck 检查漏洞
+## govulncheck 检查漏洞 go install golang.org/x/vuln/cmd/govulncheck@latest
 check:
 	govulncheck ./...
