@@ -79,6 +79,12 @@ func NotFoundError(c *gin.Context, errmsg string) {
 	PutResponse(res)
 }
 
+func NotAllowedMethod(c *gin.Context, errmsg string) {
+	res := NewResponse(http.StatusMethodNotAllowed, errmsg, [0]int{}, nil)
+	c.SecureJSON(http.StatusMethodNotAllowed, res)
+	PutResponse(res)
+}
+
 func PutResponse(r *resResult) {
 	r.Code = 0
 	r.Message = ""
