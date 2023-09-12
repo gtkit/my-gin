@@ -33,7 +33,10 @@ var pool = sync.Pool{
 
 // 定义自己的返回code
 func NewResponse(code ErrCode, msg string, data, meta interface{}) *resResult {
-	response := pool.Get().(*resResult)
+	response, ok := pool.Get().(*resResult)
+	if !ok {
+		return nil
+	}
 
 	response.Code = code
 	response.Message = msg

@@ -21,10 +21,6 @@ func (r *reposit) Ping() (*model.AssistantMember, goerr.Error) {
 		return nil, goerr.New(err, goerr.ErrMysqlServer, "mysql 更新失败")
 	}
 
-	// redis 只使用一个库的时候
-	// r.rdb.Set("member_name", m.NickName, 60*time.Second)
-	// r.rdb.Set("member_id", strconv.Itoa(int(m.ID)), 60*time.Second)
-
 	// 用到多个redis 库的情况
 	r.rdbs[0].Set("member_id", strconv.Itoa(int(m.ID)), 0)
 	r.rdbs[1].Set("MobilePhone", *m.MobilePhone, 60*time.Second)

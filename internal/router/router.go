@@ -2,8 +2,6 @@
 package router
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
 
 	"ydsd_gin/internal/middleware"
@@ -45,11 +43,9 @@ func InitSysRouter(r *gin.Engine) {
 }
 
 func noroute(c *gin.Context) {
-	fmt.Println("-----not found route")
 	response.NotFoundError(c, "未知的路由未知的路由")
 }
 
 func nomethod(c *gin.Context) {
-	fmt.Println("-----not allowed method")
 	response.NotAllowedMethod(c, "未知的请求方法未知的请求方法")
 }

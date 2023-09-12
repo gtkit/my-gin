@@ -13,11 +13,10 @@ func (h *handler) Ping(c *gin.Context) {
 
 	m, err := h.repository.Ping()
 	if err != nil {
-		h.log.Info("ping err-----", err)
+
 		response.Error(c, err)
 	}
 
-	h.log.Info("member info------", m)
 	response.Ok(c, m)
 
 }

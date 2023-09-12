@@ -17,14 +17,12 @@ type Reposit interface {
 }
 type reposit struct {
 	mdb  *gorm.DB
-	rdb  *rdb.Redisclient
 	rdbs map[int]*rdb.Redisclient
 }
 
-func New(sqldb *gorm.DB, redis *rdb.Redisclient, rdbs map[int]*rdb.Redisclient) Reposit {
+func New(sqldb *gorm.DB, rdbs map[int]*rdb.Redisclient) Reposit {
 	return &reposit{
 		mdb:  sqldb,
-		rdb:  redis,
 		rdbs: rdbs,
 	}
 }
