@@ -2,11 +2,14 @@
 package router
 
 import (
+	"fmt"
+
+	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 
 	"ydsd_gin/internal/middleware"
 	"ydsd_gin/internal/pkg/env"
-	"ydsd_gin/internal/pkg/response"
+	resp "ydsd_gin/internal/pkg/response"
 	v1 "ydsd_gin/internal/router/v1"
 )
 
@@ -17,6 +20,10 @@ func InitRouter() *gin.Engine {
 	}
 
 	r := gin.New()
+	if env.Active().IsDev() {
+		fmt.Println("---pprof register--")
+		pprof.Register(r)
+	}
 
 	// 不允许的请求方法
 	r.HandleMethodNotAllowed = true // 要设置这一步 NoMethod 才生效
@@ -27,14 +34,14 @@ func InitRouter() *gin.Engine {
 	middleware.InitMiddleware(r)
 
 	// 注册系统路由
-	InitSysRouter(r)
+	initSysRouter(r)
 
 	return r
 }
 
-func InitSysRouter(r *gin.Engine) {
+func initSysRouter(r *gin.Engine) {
 
-	g := r.Group("/draw")
+	g := r.Group("/api")
 	// 各个路由组
 	{
 		v1.ApiRouter(g)
@@ -43,9 +50,9 @@ func InitSysRouter(r *gin.Engine) {
 }
 
 func noroute(c *gin.Context) {
-	response.NotFoundError(c, "未知的路由未知的路由")
+	resp.NotFoundError(c, "未知的路由未知的路由")
 }
 
 func nomethod(c *gin.Context) {
-	response.NotAllowedMethod(c, "未知的请求方法未知的请求方法")
+	resp.NotAllowedMethod(c, "未知的请求方法未知的请求方法")
 }

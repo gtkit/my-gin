@@ -2,9 +2,6 @@
 package repository
 
 import (
-	"strconv"
-	"time"
-
 	"github.com/gtkit/goerr"
 
 	"ydsd_gin/internal/model"
@@ -22,8 +19,9 @@ func (r *reposit) Ping() (*model.AssistantMember, goerr.Error) {
 	}
 
 	// 用到多个redis 库的情况
-	r.rdbs[0].Set("member_id", strconv.Itoa(int(m.ID)), 0)
-	r.rdbs[1].Set("MobilePhone", *m.MobilePhone, 60*time.Second)
+	// r.rdbs[0].Set("member_id", strconv.Itoa(int(m.ID)), 0)
+	// r.rdbs[1].Set("MobilePhone", *m.MobilePhone, 60*time.Second)
 
-	return m, nil
+	// return m, nil
+	return nil, nil
 }

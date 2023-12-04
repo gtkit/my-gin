@@ -3,6 +3,7 @@ package dao
 
 import (
 	"github.com/gtkit/goes"
+	"github.com/gtkit/logger"
 	"github.com/olivere/elastic/v7"
 
 	"ydsd_gin/config"
@@ -16,7 +17,7 @@ func initEsClient() *elastic.Client {
 		Pass:   config.GetString("es.pass"),
 		Scheme: config.GetString("es.scheme"),
 		Debug:  config.GetInt("elasticsearch.debug"),
-		Log:    goes.SetEsLogger(nil), // 默认使用 zap log
+		Log:    logger.EsLogger(), // 默认使用 zap log
 	})
 
 }

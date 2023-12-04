@@ -1,22 +1,41 @@
-package apis
+package handler
 
 import (
-	"github.com/gin-gonic/gin"
+	"fmt"
 
-	"ydsd_gin/internal/model"
-	"ydsd_gin/internal/pkg/response"
+	"github.com/gin-gonic/gin"
 )
 
 func (h *handler) Ping(c *gin.Context) {
 
-	var m *model.AssistantMember
-
-	m, err := h.repository.Ping()
+	// var m *model.AssistantMember
+	//
+	// m, err := h.repository.Ping()
+	// if err != nil {
+	//
+	// 	response.Error(c, err)
+	// }
+	fmt.Println("------------ping ----------")
+	msg := NewMessage(1, []byte("this is xiaozhaofu test protoc 2"))
+	pbmsg := msg.ToProtoc()
+	fmt.Printf("----pbmsg2: %+v\n", string(pbmsg))
+	res, err := msg.FromProtoc(pbmsg)
 	if err != nil {
-
-		response.Error(c, err)
+		fmt.Println("---msg FromProtoc error:", err)
 	}
+	fmt.Printf("----decode pbmsg: %+v\n", res)
+	// c.ProtoBuf(200, &msg)
+	// data := res
 
-	response.Ok(c, m)
+	// response.Ok(c, m)
+	// c.JSON(200, gin.H{
+	// 	"MsgType":    2,
+	// 	"MsgContent": string(res.MsgContent),
+	// })
+	c.ProtoBuf(200, res)
 
+}
+
+func (h *handler) DoPing(c *gin.Context) {
+	fmt.Println("-----do ping -----")
 }

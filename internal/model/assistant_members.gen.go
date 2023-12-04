@@ -33,6 +33,6 @@ type AssistantMember struct {
 }
 
 // TableName AssistantMember's table name
-func (*AssistantMember) TableName() string {
-	return TableNameAssistantMember
-}
+// func (*AssistantMember) TableName() string {
+// 	return TableNameAssistantMember
+// }

@@ -2,10 +2,10 @@ package cmd
 
 import (
 	"context"
+
 	"github.com/gtkit/logger"
 	"github.com/robfig/cron/v3"
 	"github.com/spf13/cobra"
-	"ydsd_gin/internal/pkg/log"
 
 	"ydsd_gin/cmd/server"
 	"ydsd_gin/internal/task"
@@ -25,7 +25,7 @@ var serverCmd = &cobra.Command{
 	Use: "server",
 	Run: func(cmd *cobra.Command, args []string) {
 		logger.Infof("\x1b[32m%s\x1b[0m", _UI)
-		go dotask()
+		// go dotask()
 		server.Run()
 	},
 }
@@ -46,7 +46,7 @@ func init() {
 func dotask() {
 	var ctx context.Context
 	// 可以在这里启动定时任务,自定义日志
-	c := cron.New(cron.WithSeconds(), cron.WithLogger(&log.Tasklog{}))
+	c := cron.New(cron.WithSeconds(), cron.WithLogger(logger.CronLog()))
 	c.Start()
 
 	el, err := c.AddJob("@every 120s", task.New())

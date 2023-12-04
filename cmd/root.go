@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/gtkit/logger"
 	"github.com/gtkit/verify"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -8,6 +9,7 @@ import (
 	"ydsd_gin/config"
 	"ydsd_gin/config/setup"
 	"ydsd_gin/internal/dao"
+
 	"ydsd_gin/internal/pkg/env"
 	jwt "ydsd_gin/internal/pkg/jwtauth"
 	"ydsd_gin/internal/pkg/log"
@@ -35,7 +37,8 @@ var rootCmd = &cobra.Command{
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
-	cobra.CheckErr(rootCmd.Execute())
+	defer logger.Sync()
+	defer cobra.CheckErr(rootCmd.Execute())
 }
 
 func init() {

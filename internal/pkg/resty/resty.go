@@ -4,7 +4,7 @@ import (
 	"crypto/tls"
 	"time"
 
-	"ydsd_gin/internal/pkg/log"
+	"github.com/gtkit/logger"
 
 	"github.com/go-resty/resty/v2"
 	jsoniter "github.com/json-iterator/go"
@@ -21,7 +21,7 @@ func NewClient() {
 	client.SetRetryCount(3).SetRetryWaitTime(1 * time.Second)        // 设置最大重试次数为 3 次，重试间隔时间为 1 秒钟
 	client.JSONMarshal = json.Marshal
 	client.JSONUnmarshal = json.Unmarshal
-	client.SetLogger(&log.RestyLogger{})
+	client.SetLogger(logger.RestyLogger())
 
 	restyClient = client
 }

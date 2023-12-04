@@ -4,15 +4,15 @@ LocalApp=mygin
 LinuxApp=mygin-linux
 
 
-server: tool
-	go build -tags=jsoniter -ldflags "-s -w" -o ${LocalApp} main.go; ./${LocalApp} server  -c dev
+server:
+	go build -tags=jsoniter -ldflags "-s -w" -gcflags="-m"  -o ${LocalApp} main.go; ./${LocalApp} server -c dev
 
 ## gormgen 生成gorm 数据表
-gormgen: tool
+gormgen:
 	go build -tags=jsoniter -ldflags "-s -w" -o ${LocalApp} main.go; ./${LocalApp} gormgen  -c dev
 
 ## newrsa 生成rsa公钥私钥
-rsa: tool
+rsa:
 	go build -tags=jsoniter -ldflags "-s -w" -o ${LocalApp} main.go; ./${LocalApp} newrsa  -c dev -a d
 
 ## 构建linux版本,需要安装upx

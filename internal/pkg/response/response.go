@@ -1,4 +1,4 @@
-package response
+package resp
 
 import (
 	"net/http"
@@ -48,12 +48,14 @@ func NewResponse(code ErrCode, msg string, data, meta interface{}) *resResult {
 
 func Ok(c *gin.Context, data interface{}) {
 	res := NewResponse(Success, Success.String(), data, nil)
+	c.Abort()
 	c.SecureJSON(http.StatusOK, res)
 	PutResponse(res)
 }
 
 func OkWithMeta(c *gin.Context, data, meta interface{}) {
 	res := NewResponse(Success, Success.String(), data, meta)
+	c.Abort()
 	c.SecureJSON(http.StatusOK, res)
 	PutResponse(res)
 }

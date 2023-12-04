@@ -1,5 +1,5 @@
 application:
-  domain: localhost:8009
+  domain: localhost:8008
   host: 0.0.0.0
   ishttps: false
   mode: develop
@@ -9,9 +9,11 @@ application:
   writertimeout: 1
 database:
   dbtype: mysql
-  host: 127.0.0.1
-  name: office_aid
-  password: ""
+  #  host: 127.0.0.1
+  host: 10.10.10.44
+  name: office_v2
+  #  password: ""
+  password: "cumulon8888"
   port: "3306"
   username: root
   maxidleconn: 50
@@ -26,7 +28,7 @@ email:
 gorm:
   logmode: 0
 jwt:
-  secret: office
+  secret: rWxBEuufQZl63EcOTJzbzXmJTDTxkRkAEeKF7wq0sfEyR5X9XC3KYvnh8DWBLKCx
   timeout: 86400
 log:
   sql: 1
@@ -42,10 +44,11 @@ log:
 public:
   islocation: 0
 redis:
-  addr: 127.0.0.1:6379
+  #  addr: 127.0.0.1:6379
+  addr: 10.10.10.44:6379
   password:
   ## redis 中用到的库
-  dbs: [0, 1]
+  dbs: [1]
   prefix: ""
 ssl:
   key: keystring
@@ -53,7 +56,7 @@ ssl:
 news:
   fsurl: ""
 elasticsearch:
-  host: "http://127.0.0.1"
+  host: "http://10.10.10.44"
   port: "9200"
   scheme: "http"
   user: ""

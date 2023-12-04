@@ -13,6 +13,7 @@ var _ Handler = (*handler)(nil)
 type Handler interface {
 	i()
 	Ping(c *gin.Context)
+	DoPing(c *gin.Context)
 }
 
 type handler struct {

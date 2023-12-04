@@ -28,8 +28,8 @@ func init() {
 var tables = []string{
 	// "assistant_members",
 	// "assistant_orders",
-	"assistant_chat_templates",
-	// "assistant_chat_question_records",
+	"office_order",
+	"inventory_keys",
 	// "assistant_chat_prompts",
 }
 
