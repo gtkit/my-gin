@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis_rate/v10"
+	"github.com/gtkit/goerr"
 
 	"github.com/gtkit/logger"
 
@@ -15,7 +16,6 @@ import (
 
 // IP限流器
 func LimitIp(num int) gin.HandlerFunc {
-
 	return func(c *gin.Context) {
 		// 得到ip地址
 		ipAddr := c.ClientIP()
@@ -26,8 +26,8 @@ func LimitIp(num int) gin.HandlerFunc {
 		if !limit.Allow() {
 			logger.Warn("ip_warn:", ipAddr, " ip 请求太频繁了, 当前限制每秒/ ", num)
 			c.AbortWithStatusJSON(http.StatusTooManyRequests, gin.H{
-				"code": 110,
-				"msg":  "接口请求太频繁了",
+				"code": goerr.ErrTooManyRequests.Code,
+				"msg":  goerr.ErrTooManyRequests.Desc,
 				"data": [0]int{},
 			})
 			return
@@ -46,8 +46,8 @@ func RateLimit(num int) gin.HandlerFunc {
 		if dao.DB().Rdb(1) == nil {
 			logger.Warn("limit 未初始化 redis: ", 1)
 			c.AbortWithStatusJSON(http.StatusTooManyRequests, gin.H{
-				"code": 110,
-				"msg":  "接口 limit 未初始化",
+				"code": goerr.ErrTooManyRequests.Code,
+				"msg":  goerr.ErrTooManyRequests.Desc,
 				"data": [0]int{},
 			})
 			return
@@ -58,8 +58,8 @@ func RateLimit(num int) gin.HandlerFunc {
 		if err != nil {
 			logger.Warn("ip_warn:", ipAddr, " ip 请求太频繁了, 当前限制每秒/ ", num)
 			c.AbortWithStatusJSON(http.StatusTooManyRequests, gin.H{
-				"code": 110,
-				"msg":  "接口请求太频繁了: " + err.Error(),
+				"code": goerr.ErrTooManyRequests.Code,
+				"msg":  goerr.ErrTooManyRequests.Desc,
 				"data": [0]int{},
 			})
 			return
@@ -67,13 +67,12 @@ func RateLimit(num int) gin.HandlerFunc {
 		if res.Remaining == 0 {
 			logger.Warn("ip_warn:", ipAddr, " ip 请求太频繁了, 当前限制每秒/ ", num)
 			c.AbortWithStatusJSON(http.StatusTooManyRequests, gin.H{
-				"code": 110,
-				"msg":  "接口请求太频繁了!",
+				"code": goerr.ErrTooManyRequests.Code,
+				"msg":  goerr.ErrTooManyRequests.Desc,
 				"data": [0]int{},
 			})
 			return
 		}
-
 		c.Next()
 	}
 }

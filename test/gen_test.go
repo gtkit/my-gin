@@ -1,5 +1,4 @@
-// @Author xiaozhaofu 2023/2/21 10:33:00
-package test
+package test_test
 
 import (
 	"fmt"

@@ -28,7 +28,7 @@ func Options(c *gin.Context) {
 		c.Header("Access-Control-Allow-Headers", "authorization, origin, content-type, accept")
 		c.Header("Allow", "HEAD,GET,POST,PUT,PATCH,DELETE,OPTIONS")
 		c.Header("Content-Type", "application/json")
-		c.AbortWithStatus(200)
+		c.AbortWithStatus(http.StatusOK)
 	}
 }
 
@@ -36,7 +36,7 @@ func Options(c *gin.Context) {
 // and resource access headers.
 func Secure(c *gin.Context) {
 	c.Header("Access-Control-Allow-Origin", "*")
-	//c.Header("X-Frame-Options", "DENY")
+	// c.Header("X-Frame-Options", "DENY")
 	c.Header("X-Content-Type-Options", "nosniff")
 	c.Header("X-XSS-Protection", "1; mode=block")
 	if c.Request.TLS != nil {

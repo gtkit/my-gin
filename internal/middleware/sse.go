@@ -6,11 +6,14 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/gtkit/encry/jwt"
+	"github.com/gtkit/goerr"
 	"github.com/gtkit/logger"
 
 	"ydsd_gin/config"
 	"ydsd_gin/internal/model"
 )
+
+const AuthErrCode = 401
 
 // SseHeader sse header
 func SseHeader() gin.HandlerFunc {
@@ -36,7 +39,7 @@ func SseAuth() gin.HandlerFunc {
 			token = c.PostForm("app_token")
 			if token == "" {
 				info := model.SseMsg{
-					Code: 401,
+					Code: AuthErrCode,
 					Msg:  err.Error(),
 				}
 				SentEvent(c, "error", info)
@@ -49,7 +52,7 @@ func SseAuth() gin.HandlerFunc {
 		if token == "" {
 			// response.Error(c, goerr.ErrAuthentication, goerr.Err("请求未携带token，无权限访问"))
 			info := model.SseMsg{
-				Code: 401,
+				Code: AuthErrCode,
 				Msg:  "请求未携带token，无权限访问",
 			}
 			SentEvent(c, "error", info)
@@ -62,11 +65,9 @@ func SseAuth() gin.HandlerFunc {
 		// parseToken 解析token包含的信息
 		claims, err := j.ParseToken(token)
 		if err != nil {
-			if err == jwt.TokenExpired {
-				// response.Error(c, goerr.ErrAuthExpired, goerr.Err("授权已过期"))
-
+			if goerr.Is(err, jwt.TokenExpired) {
 				info := model.SseMsg{
-					Code: 401,
+					Code: AuthErrCode,
 					Msg:  "授权已过期, 请重新登录",
 				}
 				SentEvent(c, "error", info)
@@ -88,7 +89,6 @@ func SseAuth() gin.HandlerFunc {
 		// c.Set("claims", claims)
 		c.Set("userid", claims.Subject)
 		c.Next()
-
 	}
 }
 

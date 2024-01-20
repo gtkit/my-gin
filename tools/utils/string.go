@@ -33,12 +33,12 @@ func RandomNumber(length int) string {
 
 // RandomString 生成长度为 length 的随机字符串
 func RandomString(length int) string {
-	mathrand.Seed(time.Now().UnixNano())
+	rng := mathrand.New(mathrand.NewSource(time.Now().UnixNano()))
 
 	letters := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	b := make([]byte, length)
 	for i := range b {
-		b[i] = letters[mathrand.Intn(len(letters))]
+		b[i] = letters[rng.Intn(len(letters))]
 	}
 	return string(b)
 }

@@ -7,7 +7,6 @@ import (
 )
 
 func initRedisCollection() map[int]*rdb.Redisclient {
-
 	return rdb.NewRedisCollection(
 		config.GetString("redis.addr"),     // redis 地址
 		config.GetString("redis.password"), // redis密码

@@ -1,4 +1,4 @@
-package test
+package test_test
 
 import (
 	"fmt"
@@ -22,7 +22,7 @@ func BenchmarkWithoutPool(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		for j := 0; j < 10000; j++ {
 			p = new(Person)
-			p.Age = 23
+			// p.Age = 23
 		}
 	}
 }

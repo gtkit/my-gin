@@ -1,4 +1,4 @@
-package test
+package test_test
 
 //
 import (
@@ -7,14 +7,12 @@ import (
 )
 
 func Benchmark_3(b *testing.B) {
-
 	// 对比，分配一个大堆时，采用pool和不采用pool的性能对比
 	// 协程数：100，每次需求对象大小1m
 	const routineCount = 10
 	const size = 1 << 20
 
 	b.Run("no-pool", func(b *testing.B) {
-
 		wg := sync.WaitGroup{}
 		for i := 0; i < routineCount; i++ {
 			wg.Add(1)
@@ -35,7 +33,7 @@ func Benchmark_3(b *testing.B) {
 		pool := sync.Pool{
 			New: func() interface{} {
 				p := make([]byte, size)
-				return p
+				return &p
 			},
 		}
 		for i := 0; i < routineCount; i++ {

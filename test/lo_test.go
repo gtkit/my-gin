@@ -1,5 +1,5 @@
 // @Author xiaozhaofu 2023/3/1 20:07:00
-package test
+package test_test
 
 import (
 	"testing"

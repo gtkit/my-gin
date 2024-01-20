@@ -1,4 +1,4 @@
-package test
+package test_test
 
 import (
 	"testing"
@@ -93,7 +93,6 @@ func BenchmarkCompare(b *testing.B) {
 
 			sign.MapSign(op, appSecret)
 		}
-
 	})
 
 }

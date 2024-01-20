@@ -12,9 +12,13 @@ import (
 	resp "ydsd_gin/internal/pkg/response"
 )
 
+const (
+	DefaultTimeout = 30 * time.Second
+)
+
 func TimeoutMiddleware() gin.HandlerFunc {
 	return timeout.New(
-		timeout.WithTimeout(30*time.Second),
+		timeout.WithTimeout(DefaultTimeout),
 		timeout.WithHandler(func(c *gin.Context) {
 			// 在此恢复请求头
 			// c.Writer.Header().Set("X-Request-Id", c.GetHeader("X-Request-Id"))

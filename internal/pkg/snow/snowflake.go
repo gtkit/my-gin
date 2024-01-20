@@ -47,7 +47,7 @@ func NewWorkers(workerID, dataCenterID int64) *Workers {
 }
 
 func (w *Workers) getMilliSeconds() int64 {
-	return time.Now().UnixNano() / 1e6
+	return time.Now().UnixMilli()
 }
 
 func (w *Workers) NextID() (uint64, error) {

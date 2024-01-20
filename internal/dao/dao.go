@@ -49,7 +49,6 @@ func (d *dao) MdbClose() error {
 }
 
 func (d *dao) RdbClose() error {
-
 	for _, v := range config.GetIntSlice("redis.dbs") {
 		if d.rdb[v] == nil {
 			continue
@@ -61,7 +60,6 @@ func (d *dao) RdbClose() error {
 		}
 	}
 	return nil
-
 }
 
 func (d *dao) d() {}

@@ -4,18 +4,22 @@ import (
 	"fmt"
 
 	"github.com/gin-gonic/gin"
+
+	"ydsd_gin/internal/model"
 )
 
 func (h *handler) Ping(c *gin.Context) {
 
-	// var m *model.AssistantMember
-	//
-	// m, err := h.repository.Ping()
-	// if err != nil {
-	//
-	// 	response.Error(c, err)
-	// }
-	fmt.Println("------------ping ----------")
+	var (
+		m   *model.AssistantMember
+		err error
+	)
+
+	m, err = h.repository.Ping()
+	if err != nil {
+		// resp.Error(c, err)
+	}
+	fmt.Println("------------ping ----------", m)
 	msg := NewMessage(1, []byte("this is xiaozhaofu test protoc 2"))
 	pbmsg := msg.ToProtoc()
 	fmt.Printf("----pbmsg2: %+v\n", string(pbmsg))

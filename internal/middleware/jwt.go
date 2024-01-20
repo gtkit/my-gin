@@ -24,7 +24,7 @@ func JWTAuth() gin.HandlerFunc {
 		// parseToken 解析token包含的信息
 		claims, err := j.ParseToken(token)
 		if err != nil {
-			if err == jwt.TokenExpired {
+			if goerr.Is(err, jwt.TokenExpired) {
 				resp.Error(c, goerr.New(err, goerr.ErrAuthExpired, "授权已过期"))
 				c.Abort()
 				return
@@ -35,7 +35,7 @@ func JWTAuth() gin.HandlerFunc {
 			return
 		}
 
-		if "client" != claims.JwtRole() {
+		if claims.JwtRole() != "client" {
 			resp.Error(c, goerr.New(err, goerr.ErrAuthentication, "角色不对"))
 			c.Abort()
 			return
@@ -45,6 +45,5 @@ func JWTAuth() gin.HandlerFunc {
 		// c.Set("claims", claims)
 		c.Set("userid", claims.JwtSubject())
 		c.Next()
-
 	}
 }

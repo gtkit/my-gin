@@ -19,5 +19,4 @@ func initEsClient() *elastic.Client {
 		Debug:  config.GetInt("elasticsearch.debug"),
 		Log:    logger.EsLogger(), // 默认使用 zap log
 	})
-
 }

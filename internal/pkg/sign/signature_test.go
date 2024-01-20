@@ -1,10 +1,12 @@
-package sign
+package sign_test
 
 import (
 	"fmt"
 	"net/url"
 	"testing"
 	"time"
+
+	"ydsd_gin/internal/pkg/sign"
 )
 
 const (
@@ -23,7 +25,7 @@ func TestSignature_Generate(t *testing.T) {
 	params.Add("c", "c1 c2")
 	fmt.Printf("params: %#v\n", params)
 
-	authorization, date, err := New(key, secret, ttl).Generate(path, method, params)
+	authorization, date, err := sign.New(key, secret, ttl).Generate(path, method, params)
 	t.Log("authorization:", authorization)
 	t.Log("date:", date)
 	t.Log("err:", err)
@@ -41,7 +43,7 @@ func TestSignature_Verify(t *testing.T) {
 	params.Add("d", "d1")
 	params.Add("c", "c1 c2*")
 
-	ok, err := New(key, secret, ttl).Verify(authorization, date, path, method, params)
+	ok, err := sign.New(key, secret, ttl).Verify(authorization, date, path, method, params)
 	t.Log(ok)
 	t.Log(err)
 }

@@ -2,6 +2,7 @@
 package middleware
 
 import (
+	"errors"
 	"net"
 	"net/http"
 	"net/http/httputil"
@@ -14,7 +15,13 @@ import (
 	"go.uber.org/zap"
 )
 
-// GinRecovery recover掉项目可能出现的panic，并使用zap记录相关日志
+const (
+	connErrCode    = 102
+	stackErrCode   = 103
+	nostackErrCode = 104
+)
+
+// GinRecovery recover掉项目可能出现的panic，并使用zap记录相关日志.
 func GinRecovery(stack bool) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		defer func() {
@@ -23,8 +30,9 @@ func GinRecovery(stack bool) gin.HandlerFunc {
 				// condition that warrants a panic stack trace.
 				var brokenPipe bool
 				if ne, ok := err.(*net.OpError); ok {
-					if se, ok := ne.Err.(*os.SyscallError); ok {
-						if strings.Contains(strings.ToLower(se.Error()), "broken pipe") || strings.Contains(strings.ToLower(se.Error()), "connection reset by peer") {
+					var se *os.SyscallError
+					if errors.As(ne.Err, &se) {
+						if strings.Contains(strings.ToLower(se.Error()), "broken pipe") || strings.Contains(strings.ToLower(se.Error()), "connection reset by peer") { //nolint:lll //used
 							brokenPipe = true
 						}
 					}
@@ -37,11 +45,11 @@ func GinRecovery(stack bool) gin.HandlerFunc {
 						zap.String("request:", string(httpRequest)),
 					)
 					c.JSON(http.StatusOK, gin.H{
-						"code": 102,
+						"code": connErrCode,
 						"msg":  err.(error).Error(),
 					})
 					// If the connection is dead, we can't write a status to it.
-					c.Error(err.(error)) // nolint: errcheck
+					c.Error(err.(error)) //nolint:errcheck //used
 					c.Abort()
 					return
 				}
@@ -53,7 +61,7 @@ func GinRecovery(stack bool) gin.HandlerFunc {
 						zap.String("stack--", string(debug.Stack())),
 					)
 					c.JSON(http.StatusOK, gin.H{
-						"code": 103,
+						"code": stackErrCode,
 						"msg":  err.(error).Error(),
 					})
 					c.AbortWithStatus(http.StatusBadRequest)
@@ -63,7 +71,7 @@ func GinRecovery(stack bool) gin.HandlerFunc {
 						zap.String("request", string(httpRequest)),
 					)
 					c.JSON(http.StatusOK, gin.H{
-						"code": 104,
+						"code": nostackErrCode,
 						"msg":  err.(error).Error(),
 					})
 				}

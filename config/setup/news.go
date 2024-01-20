@@ -12,5 +12,4 @@ func init() {
 			"fsurl": viper.GetString("news.fsurl"),
 		}
 	})
-
 }
