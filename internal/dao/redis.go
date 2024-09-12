@@ -1,16 +1,19 @@
 package dao
 
 import (
-	"github.com/gtkit/redis/rdb"
+	"github.com/gtkit/redis"
 
 	"ydsd_gin/config"
 )
 
-func initRedisCollection() map[int]*rdb.Redisclient {
-	return rdb.NewRedisCollection(
-		config.GetString("redis.addr"),     // redis 地址
-		config.GetString("redis.password"), // redis密码
-		config.GetString("redis.prefix"),   // redis键值前缀
-		config.GetIntSlice("redis.dbs"),    // 用到的redis 多个库, 一个库时,只需设置需要用到库
+func initRedisCollection() map[int]*redis.Redisclient {
+	var dbsconn []redis.ConnConfigOption
+	dbsconn = append(dbsconn, redis.WithAddr(config.GetString("redis.addr")))
+	for _, db := range config.GetIntSlice("redis.dbs") {
+		dbsconn = append(dbsconn, redis.WithDB(db))
+	}
+
+	return redis.NewCollection(
+		dbsconn...,
 	)
 }

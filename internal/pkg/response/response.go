@@ -18,21 +18,21 @@ const (
 )
 
 type resResult struct {
-	Code    ErrCode     `json:"code"`
-	Message string      `json:"msg"`
-	Data    interface{} `json:"data"`
-	Meta    interface{} `json:"meta,omitempty"`
+	Code    ErrCode `json:"code"`
+	Message string  `json:"msg"`
+	Data    any     `json:"data"`
+	Meta    any     `json:"meta,omitempty"`
 }
 
 // 为了提高效率使用一个Pool
 var pool = sync.Pool{
-	New: func() interface{} {
+	New: func() any {
 		return &resResult{}
 	},
 }
 
 // 定义自己的返回code
-func NewResponse(code ErrCode, msg string, data, meta interface{}) *resResult {
+func NewResponse(code ErrCode, msg string, data, meta any) *resResult {
 	response, ok := pool.Get().(*resResult)
 	if !ok {
 		return nil
@@ -46,14 +46,14 @@ func NewResponse(code ErrCode, msg string, data, meta interface{}) *resResult {
 	return response
 }
 
-func Ok(c *gin.Context, data interface{}) {
+func Ok(c *gin.Context, data any) {
 	res := NewResponse(Success, Success.String(), data, nil)
 	c.Abort()
 	c.SecureJSON(http.StatusOK, res)
 	PutResponse(res)
 }
 
-func OkWithMeta(c *gin.Context, data, meta interface{}) {
+func OkWithMeta(c *gin.Context, data, meta any) {
 	res := NewResponse(Success, Success.String(), data, meta)
 	c.Abort()
 	c.SecureJSON(http.StatusOK, res)

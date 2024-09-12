@@ -7,8 +7,8 @@ import (
 )
 
 func init() {
-	config.Add("app", func() map[string]interface{} {
-		return map[string]interface{}{
+	config.Add("app", func() map[string]any {
+		return map[string]any{
 			"readTimeout":   viper.GetInt("application.readTimeout"),
 			"writerTimeout": viper.GetInt("application.writerTimeout"),
 			"host":          viper.GetString("application.host"),

@@ -1,20 +1,25 @@
 package env
 
 import (
-	"fmt"
 	"strings"
+)
+
+const (
+	EnvDev  = "dev"
+	EnvTest = "test"
+	EnvPro  = "pro"
 )
 
 var (
 	active Environment
-	dev    Environment = &environment{value: "dev"}
-	test   Environment = &environment{value: "test"}
-	pro    Environment = &environment{value: "pro"}
+	dev    Environment = &environment{value: EnvDev}
+	test   Environment = &environment{value: EnvTest}
+	pro    Environment = &environment{value: EnvPro}
 )
 
 var _ Environment = (*environment)(nil)
 
-// Environment 环境配置
+// Environment 环境配置.
 type Environment interface {
 	Value() string
 	IsDev() bool
@@ -31,54 +36,71 @@ func (e *environment) Value() string {
 	return e.value
 }
 
-// IsDev 是否是开发环境
+// IsDev 是否是开发环境.
 func (e *environment) IsDev() bool {
-	return e.value == "dev"
+	return e.value == EnvDev
 }
 
-// IsTest 是否是测试环境
+// IsTest 是否是测试环境.
 func (e *environment) IsTest() bool {
-	return e.value == "test"
+	return e.value == EnvTest
 }
 
-// IsPro 是否是生产环境
+// IsPro 是否是生产环境.
 func (e *environment) IsPro() bool {
-	return e.value == "pro"
+	return e.value == EnvPro
 }
 
 func (e *environment) t() {}
 
 func SetEnv(env string) {
-
 	switch strings.ToLower(strings.TrimSpace(env)) {
-	case "dev":
+	case EnvDev:
 		active = dev
-	case "test":
+	case EnvTest:
 		active = test
-	case "pro":
+	case EnvPro:
 		active = pro
 	default:
 		active = dev
-		fmt.Println("Warning: '-env' cannot be found, or it is illegal. The default 'dev' will be used.")
 	}
 }
 
-// Active 当前配置的env
+// Active 当前配置的env.
 func Active() Environment {
 	return active
 }
 
-// IsDev 是否是开发环境
+// IsDev 是否是开发环境.
 func IsDev() bool {
 	return active.IsDev()
 }
 
-// IsTest 是否是测试环境
+// IsTest 是否是测试环境.
 func IsTest() bool {
 	return active.IsTest()
 }
 
-// IsPro 是否是生产环境
+// IsPro 是否是生产环境.
 func IsPro() bool {
 	return active.IsPro()
+}
+
+func Env() string {
+	return active.Value()
+}
+
+func Name() string {
+	var envName string
+	switch active.Value() {
+	case EnvDev:
+		envName = "⭐【开发环境】"
+	case EnvTest:
+		envName = "⭐【测试环境】"
+	case EnvPro:
+		envName = "🔴【生产环境】"
+	default:
+		envName = "【未知环境】"
+	}
+	return envName
 }

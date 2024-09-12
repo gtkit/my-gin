@@ -5,13 +5,14 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"encoding/json"
+	"fmt"
 	"sort"
 	"strconv"
 	"strings"
 )
 
 // map 参数获取 sign
-func MapSign(op map[string]interface{}, appSecret string) string {
+func MapSign(op map[string]any, appSecret string) string {
 
 	var buf bytes.Buffer
 
@@ -22,14 +23,14 @@ func MapSign(op map[string]interface{}, appSecret string) string {
 	buf.WriteString(appSecret)
 
 	returnStr := buf.String()
-	// fmt.Println("------------return str : ", returnStr)
+	fmt.Println("------------return str : ", returnStr)
 
 	s := NewMd5(returnStr)
 
 	return strings.ToUpper(s)
 }
 
-func sortMap(op map[string]interface{}, t int8) string {
+func sortMap(op map[string]any, t int8) string {
 	keys := make([]string, 0, len(op))
 
 	for k, _ := range op {
@@ -60,7 +61,7 @@ func sortMap(op map[string]interface{}, t int8) string {
 			buf.WriteString(strconv.FormatInt(vv, 10))
 		case bool:
 			buf.WriteString(strconv.FormatBool(vv))
-		case map[string]interface{}:
+		case map[string]any:
 			// vvs := sortMap(vv, 1)
 			// // fmt.Println("------string(jstr)", strings.TrimRight(vvs, ","))
 			// buf.WriteString("{")

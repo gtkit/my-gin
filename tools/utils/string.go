@@ -99,12 +99,12 @@ func LowerFirst(s string) string {
 	return strings.ToLower(string(s[0]))
 }
 
-func StructToMap(data interface{}) (map[string]interface{}, error) {
+func StructToMap(data any) (map[string]any, error) {
 	dataBytes, err := json.Marshal(data)
 	if err != nil {
 		return nil, err
 	}
-	mapData := make(map[string]interface{})
+	mapData := make(map[string]any)
 	err = json.Unmarshal(dataBytes, &mapData)
 	if err != nil {
 		return nil, err

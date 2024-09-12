@@ -9,7 +9,7 @@ import (
 	"ydsd_gin/internal/pkg/sign"
 )
 
-type OrderParams map[string]interface{}
+type OrderParams map[string]any
 
 func TestMapsign(t *testing.T) {
 	tb := time.Now()
@@ -105,7 +105,7 @@ func TestHexiaoMapSgin(t *testing.T) {
 	vp["client_id"] = "862d3b5206b24b018cbf6ca8755e9037"
 	vp["access_token"] = "703e5f43b93d4c38b0327cd64e1f172cc4d70394"
 	vp["timestamp"] = 1664432742
-	vp["request"] = map[string]interface{}{
+	vp["request"] = map[string]any{
 		"order_sn":       "220825-335502416882023",
 		"out_voucher_id": "1123",
 		"serial_no":      "12633250409353216",

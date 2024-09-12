@@ -1,6 +1,10 @@
 package cmd
 
 import (
+	"fmt"
+	"runtime"
+
+	"github.com/fsnotify/fsnotify"
 	"github.com/gtkit/logger"
 	"github.com/gtkit/verify"
 	"github.com/spf13/cobra"
@@ -37,8 +41,28 @@ var rootCmd = &cobra.Command{
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
-	defer logger.Sync()
-	defer cobra.CheckErr(rootCmd.Execute())
+	defer func() {
+		// 关闭数据库连接.
+		closeDB()
+		// 输出协程数量.
+		logger.Infof("[*]协程数量->%d\n", runtime.NumGoroutine())
+		// 清除缓冲日志.
+		logger.Sync()
+	}()
+	cobra.CheckErr(rootCmd.Execute())
+}
+
+func closeDB() {
+	// 关闭数据库连接.
+	if err := dao.MdbClose(); err != nil {
+		logger.Error("[*]Mysql close error", err)
+	}
+	logger.Blue("[*]Mysql close success")
+	// 关闭 redis 连接.
+	if err := dao.RdbClose(); err == nil {
+		logger.Error("[*]Redis close error", err)
+	}
+	logger.Blue("[*]Redis close success")
 }
 
 func init() {
@@ -59,6 +83,17 @@ func initConfig() {
 	viper.SetConfigType("yml")
 	// 读取 embed 方式 编译文件
 	if err := viper.ReadConfig(config.DoConfig()); err != nil {
+		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
+			// Config file not found; ignore error if desired
+			logger.Blue("no such config file")
+		}
 		panic(err)
 	}
+	viper.SetConfigName(env.Active().Value())
+	// viper.AddConfigPath("/Users/xiaozhaofu/go/src/mygin/config/env")
+	viper.AddConfigPath("/Users/xiaozhaofu/go/src/mygin/config/env")
+	viper.WatchConfig()
+	viper.OnConfigChange(func(e fsnotify.Event) {
+		fmt.Println("----config file changed:", e.String(), "---- config file name:", e.Name)
+	})
 }

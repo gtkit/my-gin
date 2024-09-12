@@ -7,8 +7,8 @@ import (
 )
 
 func init() {
-	config.Add("rsa", func() map[string]interface{} {
-		return map[string]interface{}{
+	config.Add("rsa", func() map[string]any {
+		return map[string]any{
 			"pubpem": viper.GetString("rsa.pub_pem"),
 			"pripem": viper.GetString("rsa.pri_pem"),
 		}

@@ -20,7 +20,7 @@ database:
   maxopenconn: 25
   maxlifeseconds: 30
 email:
-  alias: office
+  alias: office163
   host: smtp.163.com
   pass: your password
   port: 465

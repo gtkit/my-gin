@@ -7,8 +7,8 @@ import (
 )
 
 func init() {
-	config.Add("redis", func() map[string]interface{} {
-		return map[string]interface{}{
+	config.Add("redis", func() map[string]any {
+		return map[string]any{
 			"addr":     viper.GetString("redis.addr"),
 			"password": viper.GetString("redis.password"),
 			"dbs":      viper.GetIntSlice("redis.dbs"),

@@ -9,22 +9,24 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/gtkit/goerr"
 	"github.com/gtkit/logger"
 
 	"ydsd_gin/config"
-	"ydsd_gin/internal/dao"
 	"ydsd_gin/internal/router"
 )
+
+const rwTimeout = 10 * time.Second
 
 func Run() {
 	// 初始化路由
 	r := router.InitRouter()
 
-	defer close()
-
 	srv := &http.Server{
-		Addr:    config.GetString("app.host") + ":" + config.GetString("app.port"),
-		Handler: r,
+		Addr:              config.GetString("app.host") + ":" + config.GetString("app.port"),
+		Handler:           r,
+		ReadHeaderTimeout: rwTimeout,
+		WriteTimeout:      rwTimeout,
 	}
 
 	// 启动服务
@@ -53,40 +55,16 @@ func Run() {
 func startServe(srv *http.Server) {
 	// 服务连接
 	if config.GetBool("app.ishttps") {
-		logger.Infof("\u001B[32m%s\u001B[0m", "https 服务启动----->>> "+config.GetString("app.host")+":"+config.GetString("app.port"))
-		if err := srv.ListenAndServeTLS(config.GetString("ssl.pem"), config.GetString("ssl.key")); err != nil && err != http.ErrServerClosed {
+		logger.Infof("\u001B[32m%s\u001B[0m", "https 服务启动----->>> "+config.GetString("app.host")+":"+config.GetString("app.port"))                      //nolint:lll //used
+		if err := srv.ListenAndServeTLS(config.GetString("ssl.pem"), config.GetString("ssl.key")); err != nil && !goerr.Is(err, http.ErrServerClosed) { //nolint:lll //used
 			logger.Fatalf("listen: %s\n", err)
 			return
 		}
-
 	} else {
-		logger.Infof("\u001B[32m%s\u001B[0m", "http 服务启动----->>> "+config.GetString("app.host")+":"+config.GetString("app.port"))
-		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+		logger.Infof("\u001B[32m%s\u001B[0m", "http 服务启动----->>> "+config.GetString("app.host")+":"+config.GetString("app.port")) //nolint:lll //used
+		if err := srv.ListenAndServe(); err != nil && !goerr.Is(err, http.ErrServerClosed) {
 			logger.Fatalf("listen: %s\n", err)
 			return
 		}
-
 	}
-}
-
-func close() {
-	dbclose()
-	redisclose()
-}
-func dbclose() {
-	err := dao.DB().MdbClose()
-	if err != nil {
-		logger.Error("mysql close  error: ", err)
-		return
-	}
-	logger.Info(" mysql close  success")
-
-}
-func redisclose() {
-	err := dao.DB().RdbClose()
-	if err != nil {
-		logger.Error("redis close  error: ", err)
-		return
-	}
-	logger.Info(" redis close success ")
 }

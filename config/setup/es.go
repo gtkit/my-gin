@@ -8,8 +8,8 @@ import (
 )
 
 func init() {
-	config.Add("es", func() map[string]interface{} {
-		return map[string]interface{}{
+	config.Add("es", func() map[string]any {
+		return map[string]any{
 			"host":   viper.GetString("elasticsearch.host"),
 			"port":   viper.GetString("elasticsearch.port"),
 			"user":   viper.GetString("elasticsearch.user"),

@@ -29,7 +29,7 @@ func TestSliceLo(t *testing.T) {
 }
 
 func TestInterfaceLo(t *testing.T) {
-	var a interface{}
+	var a any
 	// a = make([]int, 0)
 	// a = make(map[string]string, 0)
 	t.Log("a is nil--", a == nil)

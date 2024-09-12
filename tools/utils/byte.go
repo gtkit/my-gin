@@ -3,13 +3,12 @@ package utils
 /**
  * 转换[]uint8类型为[]byte 类型
  */
-func Bytes(reply interface{}) []byte {
-
+func Bytes(reply any) []byte {
 	switch reply := reply.(type) {
 
 	case []uint8:
 		return I2B(reply)
-	case interface{}:
+	case any:
 		return nil
 	case nil:
 		return nil
@@ -21,7 +20,7 @@ func Bytes(reply interface{}) []byte {
 func I2B(bs []uint8) []byte {
 	ba := []byte{}
 	for _, b := range bs {
-		ba = append(ba, byte(b))
+		ba = append(ba, b)
 	}
 	return ba
 }

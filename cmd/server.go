@@ -1,14 +1,10 @@
 package cmd
 
 import (
-	"context"
-
 	"github.com/gtkit/logger"
-	"github.com/robfig/cron/v3"
 	"github.com/spf13/cobra"
 
 	"ydsd_gin/cmd/server"
-	"ydsd_gin/internal/task"
 )
 
 const _UI = `
@@ -42,19 +38,4 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// serverCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-}
-func dotask() {
-	var ctx context.Context
-	// 可以在这里启动定时任务,自定义日志
-	c := cron.New(cron.WithSeconds(), cron.WithLogger(logger.CronLog()))
-	c.Start()
-
-	el, err := c.AddJob("@every 120s", task.New())
-	if err != nil {
-		logger.Error("AddJob error", el, err)
-		ctx = c.Stop()
-	}
-	select {
-	case <-ctx.Done():
-	}
 }

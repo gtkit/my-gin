@@ -31,7 +31,7 @@ func Benchmark_3(b *testing.B) {
 	b.Run("pool", func(b *testing.B) {
 		wg := sync.WaitGroup{}
 		pool := sync.Pool{
-			New: func() interface{} {
+			New: func() any {
 				p := make([]byte, size)
 				return &p
 			},

@@ -7,8 +7,8 @@ import (
 )
 
 func init() {
-	config.Add("news", func() map[string]interface{} {
-		return map[string]interface{}{
+	config.Add("news", func() map[string]any {
+		return map[string]any{
 			"fsurl": viper.GetString("news.fsurl"),
 		}
 	})

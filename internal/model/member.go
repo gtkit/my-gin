@@ -11,9 +11,9 @@ import (
 
 const TimeFormat = time.DateTime
 
-// MarshalJSON 为Order类型实现自定义的MarshalJSON方法
+// MarshalJSON 为AssistantMember类型实现自定义的MarshalJSON方法
 func (m *AssistantMember) MarshalJSON() ([]byte, error) {
-	type TempMember AssistantMember // 定义与Order字段一致的新类型
+	type TempMember AssistantMember // 定义与AssistantMember字段一致的新类型
 	return json.Marshal(struct {
 		CreatedAt   string `json:"created_at"`
 		UpdatedAt   string `json:"updated_at"`
@@ -27,7 +27,7 @@ func (m *AssistantMember) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// UnmarshalJSON 为Order类型实现自定义的UnmarshalJSON方法
+// UnmarshalJSON 为AssistantMember类型实现自定义的UnmarshalJSON方法
 func (m *AssistantMember) UnmarshalJSON(data []byte) error {
 	type TempMember AssistantMember // 定义与AssistantMember字段一致的新类型
 	ot := struct {

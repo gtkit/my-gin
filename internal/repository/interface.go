@@ -3,9 +3,10 @@ package repository
 
 import (
 	"github.com/gtkit/goerr"
-	"github.com/gtkit/redis/rdb"
+	"github.com/gtkit/redis"
 	"gorm.io/gorm"
 
+	"ydsd_gin/internal/dao"
 	"ydsd_gin/internal/model"
 )
 
@@ -16,15 +17,21 @@ type Reposit interface {
 	Ping() (*model.AssistantMember, goerr.Error)
 }
 type reposit struct {
-	mdb  *gorm.DB
-	rdbs map[int]*rdb.Redisclient
+	dao dao.Dao
 }
 
-func New(sqldb *gorm.DB, rdbs map[int]*rdb.Redisclient) Reposit {
+func New(dao dao.Dao) Reposit {
 	return &reposit{
-		mdb:  sqldb,
-		rdbs: rdbs,
+		dao: dao,
 	}
 }
 
 func (r *reposit) i() {}
+
+func (r *reposit) rdb(db int) *redis.Redisclient {
+	return r.dao.Rdb(db)
+}
+
+func (r *reposit) mydb() *gorm.DB {
+	return r.dao.Mdb()
+}

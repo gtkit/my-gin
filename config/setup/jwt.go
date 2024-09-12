@@ -7,8 +7,8 @@ import (
 )
 
 func init() {
-	config.Add("jwt", func() map[string]interface{} {
-		return map[string]interface{}{
+	config.Add("jwt", func() map[string]any {
+		return map[string]any{
 			"secret": viper.GetString("jwt.secret"),
 		}
 	})

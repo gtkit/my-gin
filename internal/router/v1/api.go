@@ -14,6 +14,7 @@ func ApiRouter(r *gin.RouterGroup) {
 	{
 		v1.GET("/ping", apictl.Ping)    // ping 接口
 		v1.POST("/ping", apictl.DoPing) // ping 接口
+		// v1.Any("/ping", apictl.DoPing)  // ping 接口, any 前不能有相同路由的方法
 
 	}
 

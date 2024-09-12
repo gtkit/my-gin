@@ -30,7 +30,7 @@ func Sentinel() gin.HandlerFunc {
 			return ctx.GetHeader("X-Real-IP")
 		}),
 		sentinel.WithBlockFallback(func(ctx *gin.Context) {
-			ctx.AbortWithStatusJSON(http.StatusOK, map[string]interface{}{
+			ctx.AbortWithStatusJSON(http.StatusOK, map[string]any{
 				"msg":  "too many request; the quota used up!",
 				"code": serverErr,
 			})

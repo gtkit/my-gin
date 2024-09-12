@@ -18,13 +18,13 @@ type SignUpParam struct {
 	Name       string `json:"name" form:"name" binding:"contains=tom,checkName"`
 	Email      string `json:"email" form:"email" binding:"required,email"`
 	Password   string `json:"password" form:"password" binding:"required"`
-	RePassword string `json:"re_password" form:"re_password" binding:"required,eqfield=Password"`
+	RePassword string `json:"re_password" form:"re_password" binding:"required_if=Password,eqfield=Password"`
 	Date       string `json:"date" form:"date" binding:"required,datetime=2006-01-02,checkDate"`
 }
 
 // 校验方式使用 demo
 func Shop(c *gin.Context) {
-	_ = verify.Validate().Struct(SignUpParam{}) // 执行验证
+	_ = verify.VarStruct(SignUpParam{}) // 执行验证
 	verify.Validate().RegisterStructValidation(SignUpParamStructLevelValidation, SignUpParam{})
 
 	if err := verify.SelfRegisterTranslation("checkDate", "必须要晚于当前日期", CustomFunc); err != nil {
@@ -51,7 +51,7 @@ func Shop(c *gin.Context) {
 		}
 
 		for _, v := range verify.RemoveTopStruct(errs.Translate(verify.Trans())) {
-			response.Error(c, goerr.New(nil, goerr.ErrValidateParams, v))
+			resp.Error(c, goerr.New(nil, goerr.ErrValidateParams, v))
 			return
 		}
 
@@ -62,7 +62,7 @@ func Shop(c *gin.Context) {
 
 }
 
-// customFunc 自定义字段级别校验方法,验证日期要在当前日期后
+// CustomFunc  自定义字段级别校验方法,验证日期要在当前日期后
 func CustomFunc(fl validator.FieldLevel) bool {
 	date, err := time.Parse("2006-01-02", fl.Field().String())
 	fmt.Println("获取到的日期")
@@ -77,7 +77,7 @@ func CustomFunc(fl validator.FieldLevel) bool {
 	return false
 }
 
-// 自定义验证函数
+// CheckName 自定义验证函数
 func CheckName(fl validator.FieldLevel) bool {
 	if fl.Field().String() != "roottom" {
 		return false

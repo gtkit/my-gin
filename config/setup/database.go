@@ -7,8 +7,8 @@ import (
 )
 
 func init() {
-	config.Add("database", func() map[string]interface{} {
-		return map[string]interface{}{
+	config.Add("database", func() map[string]any {
+		return map[string]any{
 			"dbType":         viper.GetString("database.dbtype"),
 			"host":           viper.GetString("database.host"),
 			"port":           viper.GetString("database.port"),

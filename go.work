@@ -1,14 +1,10 @@
-go 1.21
+go 1.22
+
+toolchain go1.22.4
 
 // 开发时 此文件不需要提交到git
 use (
-	.
-	// 使用本地已有的包
-	//../goerr
-	// 将扩展包放到本项目目录, 使用workspace中的包进行调试
-	//workspace/timeout@v0.0.3
-	//workspace/requestid@v0.0.6
-	//../redis
-	//../goes
+.
+//../gormlog
 
 )

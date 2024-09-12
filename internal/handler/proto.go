@@ -6,7 +6,7 @@ import (
 
 	"google.golang.org/protobuf/proto"
 
-	"ydsd_gin/proto/pb"
+	"ydsd_gin/protobuf/pb"
 )
 
 // var _ IProtoc = (*MessageBase)(nil)

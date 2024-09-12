@@ -11,7 +11,7 @@ type Person struct {
 }
 
 var personPool = sync.Pool{
-	New: func() interface{} { return new(Person) },
+	New: func() any { return new(Person) },
 }
 
 // 没有使用Sync.Pool的
@@ -25,6 +25,7 @@ func BenchmarkWithoutPool(b *testing.B) {
 			// p.Age = 23
 		}
 	}
+	b.Log("person: ", p)
 }
 
 // 带有Sync.Pool的对象

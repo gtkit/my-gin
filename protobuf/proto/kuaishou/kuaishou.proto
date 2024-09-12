@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package kuaishou;
+
+
+// 指定 目录
+option go_package = "ydsd_gin/proto/pb/kuaishou";
+
+// protoc -I=kuaishou --go_out=kuaishou  --go_opt=paths=source_relative kuaishou/kuaishou.proto
+
+// 定义请求参数
+message RtaRequest {
+  string request_id = 1; //本次请求的唯一标识 id。
+  string channel = 2; //渠道标识
+  int64 request_time = 3; //发起调用时的 unix 时间戳，毫秒。快手侧会与服务器当前时间进行比对，两者差值不能大于 10 分钟
+  string sign = 4; //验签值，sign = md5(request_id + request_time + 授权码)，三个字段直接拼接，中间没有"+"号
+  Device device = 5; //设备信息
+  message Device {
+    string imei = 1; //imei 原值
+    string imeiMd5 = 2; //imeiMd5 = toLowerCase(md5(imei 原值))
+    string oaid = 3; //oaid 原值
+    string oaidMd5 = 4; //oaidMd5 = toLowerCase(md5(oaid 原值))
+    string idfa = 5; //idfa 原值
+    string idfaMd5 = 6; //idfaMd5 = toLowerCase(md5(idfa 原值))
+  }
+  repeated string promotion_type = 6; //该设备需要问询的推广类型，如快手拉新、快手极速版拉活。具体值在线下约定快手内部文档请勿外传
+}
+
+// 定义响应参数
+message RtaResponse {
+  int32 status_code = 1; // 服务状态码，正常:0，异常:非 0
+  repeated PromotionResult promotion_result = 2;
+  message PromotionResult {
+    string promotion_type = 1; //对应 RtaRequest.promotion_type
+    bool accept = 2; //true:选择该流量，可以参与竞价
+  }
+}

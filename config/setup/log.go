@@ -7,8 +7,8 @@ import (
 )
 
 func init() {
-	config.Add("log", func() map[string]interface{} {
-		return map[string]interface{}{
+	config.Add("log", func() map[string]any {
+		return map[string]any{
 			"division": viper.GetString("log.division"),
 			// 是否打印 执行的sql
 			"sql": viper.GetInt("log.sql"),

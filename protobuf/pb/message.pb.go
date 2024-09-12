@@ -241,7 +241,7 @@ func file_chat_message_proto_rawDescGZIP() []byte {
 }
 
 var file_chat_message_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_chat_message_proto_goTypes = []interface{}{
+var file_chat_message_proto_goTypes = []any{
 	(*BaseMessage)(nil), // 0: BaseMessage
 	(*Notice)(nil),      // 1: Notice
 	(*TextMessage)(nil), // 2: TextMessage
@@ -260,7 +260,7 @@ func file_chat_message_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_chat_message_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_chat_message_proto_msgTypes[0].Exporter = func(v any, i int) any {
 			switch v := v.(*BaseMessage); i {
 			case 0:
 				return &v.state
@@ -272,7 +272,7 @@ func file_chat_message_proto_init() {
 				return nil
 			}
 		}
-		file_chat_message_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_chat_message_proto_msgTypes[1].Exporter = func(v any, i int) any {
 			switch v := v.(*Notice); i {
 			case 0:
 				return &v.state
@@ -284,7 +284,7 @@ func file_chat_message_proto_init() {
 				return nil
 			}
 		}
-		file_chat_message_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_chat_message_proto_msgTypes[2].Exporter = func(v any, i int) any {
 			switch v := v.(*TextMessage); i {
 			case 0:
 				return &v.state

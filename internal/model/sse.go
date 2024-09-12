@@ -7,15 +7,15 @@ import (
 
 //go:generate go-option -type SseClient
 type SseClient struct {
-	// This is the channel used to send messages to client
-	Id      string
+	Ctx     context.Context // Connection的上下文
 	Message chan string
-	Ctx     context.Context    // Connection的上下文
 	Cancel  context.CancelFunc // 取消Connection的方法
 	Err     chan error
+	// This is the channel used to send messages to client
+	Id string
 }
 
 type SseMsg struct {
-	Code int32  `json:"code"`
 	Msg  string `json:"msg"`
+	Code int32  `json:"code"`
 }
