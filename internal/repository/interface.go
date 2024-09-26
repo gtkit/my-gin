@@ -3,14 +3,15 @@ package repository
 
 import (
 	"github.com/gtkit/goerr"
-	"github.com/gtkit/redis"
-	"gorm.io/gorm"
+	"github.com/redis/go-redis/v9"
 
-	"ydsd_gin/internal/dao"
-	"ydsd_gin/internal/model"
+	"my_gin/internal/dao"
+	"my_gin/internal/model"
 )
 
-var _ Reposit = (*reposit)(nil)
+func _() {
+	var _ Reposit = (*reposit)(nil)
+}
 
 type Reposit interface {
 	i()
@@ -28,10 +29,14 @@ func New(dao dao.Dao) Reposit {
 
 func (r *reposit) i() {}
 
-func (r *reposit) rdb(db int) *redis.Redisclient {
+func (r *reposit) mdb() dao.MyDB {
+	return r.dao.Mdb()
+}
+
+func (r *reposit) rdb(db int) dao.RDB {
 	return r.dao.Rdb(db)
 }
 
-func (r *reposit) mydb() *gorm.DB {
-	return r.dao.Mdb()
+func (r *reposit) rdbClient(db int) *redis.Client {
+	return r.dao.Rdb(db).Client()
 }

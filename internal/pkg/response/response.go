@@ -17,7 +17,7 @@ const (
 	RequestFail ErrCode = 10010014 // 请求失败
 )
 
-type resResult struct {
+type ResResult struct {
 	Code    ErrCode `json:"code"`
 	Message string  `json:"msg"`
 	Data    any     `json:"data"`
@@ -27,13 +27,13 @@ type resResult struct {
 // 为了提高效率使用一个Pool
 var pool = sync.Pool{
 	New: func() any {
-		return &resResult{}
+		return &ResResult{}
 	},
 }
 
 // 定义自己的返回code
-func NewResponse(code ErrCode, msg string, data, meta any) *resResult {
-	response, ok := pool.Get().(*resResult)
+func NewResponse(code ErrCode, msg string, data, meta any) *ResResult {
+	response, ok := pool.Get().(*ResResult)
 	if !ok {
 		return nil
 	}
@@ -61,8 +61,8 @@ func OkWithMeta(c *gin.Context, data, meta any) {
 }
 
 func Err(c *gin.Context, err goerr.Error) {
-	res := NewResponse(ErrCode(err.Code().Code), err.Error(), [0]int{}, nil)
-	c.SecureJSON(err.Code().HTTPCode, res)
+	res := NewResponse(ErrCode(err.ErrCode()), err.Error(), [0]int{}, nil)
+	c.SecureJSON(err.HttpCode(), res)
 	PutResponse(res)
 }
 
@@ -73,8 +73,8 @@ func Fail(c *gin.Context) {
 }
 
 func Error(c *gin.Context, err goerr.Error) {
-	res := NewResponse(ErrCode(err.Code().Code), err.Error(), [0]int{}, nil)
-	c.SecureJSON(err.Code().HTTPCode, res)
+	res := NewResponse(ErrCode(err.ErrCode()), err.Error(), [0]int{}, nil)
+	c.SecureJSON(err.HttpCode(), res)
 	PutResponse(res)
 }
 
@@ -90,7 +90,7 @@ func NotAllowedMethod(c *gin.Context, errmsg string) {
 	PutResponse(res)
 }
 
-func PutResponse(r *resResult) {
+func PutResponse(r *ResResult) {
 	r.Code = 0
 	r.Message = ""
 	r.Data = nil

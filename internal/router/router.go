@@ -7,10 +7,10 @@ import (
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 
-	"ydsd_gin/internal/middleware"
-	"ydsd_gin/internal/pkg/env"
-	resp "ydsd_gin/internal/pkg/response"
-	v1 "ydsd_gin/internal/router/v1"
+	"my_gin/internal/middleware"
+	"my_gin/internal/pkg/env"
+	resp "my_gin/internal/pkg/response"
+	v1 "my_gin/internal/router/v1"
 )
 
 func InitRouter() *gin.Engine {

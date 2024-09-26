@@ -10,13 +10,14 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"ydsd_gin/config"
-	"ydsd_gin/config/setup"
-	"ydsd_gin/internal/dao"
+	"my_gin/config"
+	"my_gin/config/setup"
+	"my_gin/internal/dao"
+	"my_gin/internal/pkg/asynq"
 
-	"ydsd_gin/internal/pkg/env"
-	jwt "ydsd_gin/internal/pkg/jwtauth"
-	"ydsd_gin/internal/pkg/log"
+	"my_gin/internal/pkg/env"
+	jwt "my_gin/internal/pkg/jwtauth"
+	"my_gin/internal/pkg/log"
 )
 
 var cfgFile string
@@ -34,6 +35,8 @@ var rootCmd = &cobra.Command{
 		dao.New()
 		// 初始化验证翻译器
 		verify.New()
+		// 初始化异步任务
+		asynq.New()
 
 	},
 }
@@ -43,7 +46,7 @@ var rootCmd = &cobra.Command{
 func Execute() {
 	defer func() {
 		// 关闭数据库连接.
-		closeDB()
+		dao.DBClose()
 		// 输出协程数量.
 		logger.Infof("[*]协程数量->%d\n", runtime.NumGoroutine())
 		// 清除缓冲日志.
@@ -52,24 +55,11 @@ func Execute() {
 	cobra.CheckErr(rootCmd.Execute())
 }
 
-func closeDB() {
-	// 关闭数据库连接.
-	if err := dao.MdbClose(); err != nil {
-		logger.Error("[*]Mysql close error", err)
-	}
-	logger.Blue("[*]Mysql close success")
-	// 关闭 redis 连接.
-	if err := dao.RdbClose(); err == nil {
-		logger.Error("[*]Redis close error", err)
-	}
-	logger.Blue("[*]Redis close success")
-}
-
 func init() {
 	cobra.OnInitialize(initConfig)
 
 	// 获取 flags
-	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "dev", "config file (default is $HOME/.ydsd_gin.yaml)")
+	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "dev", "config file (default is $HOME/.my_gin.yaml)")
 }
 
 // initConfig reads in config file and ENV variables if set.

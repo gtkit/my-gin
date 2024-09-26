@@ -9,7 +9,7 @@ import (
 
 	"github.com/gin-contrib/timeout"
 
-	resp "ydsd_gin/internal/pkg/response"
+	resp "my_gin/internal/pkg/response"
 )
 
 const (
@@ -30,5 +30,5 @@ func TimeoutMiddleware() gin.HandlerFunc {
 }
 
 func timeoutResponse(c *gin.Context) {
-	resp.Error(c, goerr.New(nil, goerr.ErrTimeout, "http 请求超时"))
+	resp.Error(c, goerr.New(nil, goerr.Timeout(), "http 请求超时"))
 }

@@ -7,7 +7,7 @@ import (
 	"gorm.io/gen"
 	"gorm.io/gorm"
 
-	"ydsd_gin/internal/dao"
+	"my_gin/internal/dao"
 )
 
 // gormgenCmd represents the gormgen command

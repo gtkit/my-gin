@@ -4,7 +4,7 @@ package test_test
 import (
 	"testing"
 
-	"ydsd_gin/tools/utils"
+	"my_gin/tools/utils"
 )
 
 func TestString(t *testing.T) {

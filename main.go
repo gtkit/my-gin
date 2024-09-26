@@ -3,7 +3,7 @@ package main
 import (
 	"runtime"
 
-	"ydsd_gin/cmd"
+	"my_gin/cmd"
 )
 
 func main() {

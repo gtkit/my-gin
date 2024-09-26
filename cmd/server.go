@@ -4,7 +4,7 @@ import (
 	"github.com/gtkit/logger"
 	"github.com/spf13/cobra"
 
-	"ydsd_gin/cmd/server"
+	"my_gin/cmd/server"
 )
 
 const _UI = `

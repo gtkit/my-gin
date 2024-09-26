@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"ydsd_gin/internal/pkg/sign"
+	"my_gin/internal/pkg/sign"
 )
 
 type OrderParams map[string]any

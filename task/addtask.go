@@ -1,7 +1,7 @@
 package task
 
 import (
-	"ydsd_gin/tools/news"
+	"my_gin/tools/news"
 )
 
 const (

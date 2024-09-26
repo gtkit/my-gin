@@ -9,7 +9,7 @@ import (
 
 	"github.com/gtkit/logger"
 
-	"ydsd_gin/internal/dao"
+	"my_gin/internal/dao"
 
 	"github.com/gtkit/golimit"
 )
@@ -26,8 +26,8 @@ func LimitIp(num int) gin.HandlerFunc {
 		if !limit.Allow() {
 			logger.Warn("ip_warn:", ipAddr, " ip 请求太频繁了, 当前限制每秒/ ", num)
 			c.AbortWithStatusJSON(http.StatusTooManyRequests, gin.H{
-				"code": goerr.ErrTooManyRequests.Code,
-				"msg":  goerr.ErrTooManyRequests.Desc,
+				"code": goerr.TooManyRequests().ErrCode(),
+				"msg":  goerr.TooManyRequests().Msg(),
 				"data": [0]int{},
 			})
 			return
@@ -46,8 +46,8 @@ func RateLimit(num int) gin.HandlerFunc {
 		if dao.DB().Rdb(1) == nil {
 			logger.Warn("limit 未初始化 redis: ", 1)
 			c.AbortWithStatusJSON(http.StatusTooManyRequests, gin.H{
-				"code": goerr.ErrTooManyRequests.Code,
-				"msg":  goerr.ErrTooManyRequests.Desc,
+				"code": goerr.TooManyRequests().ErrCode(),
+				"msg":  goerr.TooManyRequests().Msg(),
 				"data": [0]int{},
 			})
 			return
@@ -58,8 +58,8 @@ func RateLimit(num int) gin.HandlerFunc {
 		if err != nil {
 			logger.Warn("ip_warn:", ipAddr, " ip 请求太频繁了, 当前限制每秒/ ", num)
 			c.AbortWithStatusJSON(http.StatusTooManyRequests, gin.H{
-				"code": goerr.ErrTooManyRequests.Code,
-				"msg":  goerr.ErrTooManyRequests.Desc,
+				"code": goerr.TooManyRequests().ErrCode(),
+				"msg":  goerr.TooManyRequests().Msg(),
 				"data": [0]int{},
 			})
 			return
@@ -67,8 +67,8 @@ func RateLimit(num int) gin.HandlerFunc {
 		if res.Remaining == 0 {
 			logger.Warn("ip_warn:", ipAddr, " ip 请求太频繁了, 当前限制每秒/ ", num)
 			c.AbortWithStatusJSON(http.StatusTooManyRequests, gin.H{
-				"code": goerr.ErrTooManyRequests.Code,
-				"msg":  goerr.ErrTooManyRequests.Desc,
+				"code": goerr.TooManyRequests().ErrCode(),
+				"msg":  goerr.TooManyRequests().Msg(),
 				"data": [0]int{},
 			})
 			return

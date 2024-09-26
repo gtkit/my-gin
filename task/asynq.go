@@ -7,8 +7,8 @@ import (
 	"github.com/gtkit/logger"
 	"github.com/hibiken/asynq"
 
-	"ydsd_gin/config"
-	"ydsd_gin/tools/utils"
+	"my_gin/config"
+	"my_gin/tools/utils"
 )
 
 const (

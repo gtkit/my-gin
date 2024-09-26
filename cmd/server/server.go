@@ -12,8 +12,8 @@ import (
 	"github.com/gtkit/goerr"
 	"github.com/gtkit/logger"
 
-	"ydsd_gin/config"
-	"ydsd_gin/internal/router"
+	"my_gin/config"
+	"my_gin/internal/router"
 )
 
 const rwTimeout = 10 * time.Second

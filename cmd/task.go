@@ -9,12 +9,12 @@ import (
 
 	"github.com/gtkit/logger"
 
-	"ydsd_gin/task/cron"
+	"my_gin/task/cron"
 
 	"github.com/spf13/cobra"
 
-	"ydsd_gin/config"
-	"ydsd_gin/internal/task"
+	"my_gin/config"
+	"my_gin/internal/task"
 )
 
 // taskCmd represents the task command.
@@ -28,7 +28,7 @@ var taskCmd = &cobra.Command{
 
 		quit := make(chan os.Signal, 1) // 定义管道来装信号
 		// 设置需要接受哪些信号量才能通过管道
-		signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+		signal.Notify(quit, osSignal()...)
 		<-quit
 		cancel()
 		logger.Redf("asynq task enqueue done ...", time.Now().Format(time.DateTime))
@@ -53,4 +53,14 @@ func dotask(ctx context.Context) {
 	defer cron.StopCron(c, el)
 	<-ctx.Done()
 	logger.Info("cron task job stop")
+}
+
+// osSignal returns a list of signals to listen for.
+func osSignal() []os.Signal {
+	return []os.Signal{
+		// syscall.SIGTSTP,
+		syscall.SIGINT,
+		syscall.SIGTERM,
+		syscall.SIGQUIT,
+	}
 }

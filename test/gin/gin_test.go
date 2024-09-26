@@ -9,7 +9,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"ydsd_gin/internal/router"
+	"my_gin/internal/router"
 )
 
 func Test_helloHandler(t *testing.T) {

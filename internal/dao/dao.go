@@ -2,12 +2,13 @@
 package dao
 
 import (
+	"github.com/gtkit/logger"
 	"github.com/gtkit/redis"
 
 	"github.com/olivere/elastic/v7"
 	"gorm.io/gorm"
 
-	"ydsd_gin/config"
+	"my_gin/config"
 )
 
 var (
@@ -28,18 +29,25 @@ type Dao interface {
 	ES() *elastic.Client // elasticsearch 实例
 	d()                  // 防止被其他包实现
 }
+
 type dao struct {
 	rdb map[int]RDB // redis,, map[db]client, db从配置文件中读取
 	mdb MyDB        // gorm mysql
 	es  *elastic.Client
 }
 
-func (d *dao) Mdb() MyDB {
-	return d.mdb
+// 防止被其他包实现
+func (d *dao) d() {}
+
+/**
+ * mysql 数据库实例
+ */
+func Mdb() MyDB {
+	return DB().Mdb()
 }
 
-func MdbClose() error {
-	return daoDB.MdbClose()
+func (d *dao) Mdb() MyDB {
+	return d.mdb
 }
 
 func (d *dao) MdbClose() error {
@@ -50,6 +58,10 @@ func (d *dao) MdbClose() error {
 	return db.Close()
 }
 
+/**
+ * redis 实例
+ * @param db redis库
+ */
 func Rdb(db int) RDB {
 	return DB().Rdb(db)
 }
@@ -69,12 +81,15 @@ func (d *dao) RdbClose() error {
 	}
 	return nil
 }
-func RdbClose() error {
-	return daoDB.RdbClose()
+
+// ES elasticsearch 实例
+func (d *dao) ES() *elastic.Client {
+	return d.es
 }
 
-func (d *dao) d() {}
-
+/**
+ * 初始化 mysql, redis, elasticsearch 连接
+ */
 func New() {
 	daoDB = &dao{
 		rdb: initRedisCollection(),
@@ -83,11 +98,21 @@ func New() {
 	}
 }
 
+// 获取 dao 实例
 func DB() Dao {
 	return daoDB
 }
 
-// ES elasticsearch 实例
-func (d *dao) ES() *elastic.Client {
-	return d.es
+// 关闭数据库, redis 连接
+func DBClose() {
+	// 关闭数据库连接.
+	if err := DB().MdbClose(); err != nil {
+		logger.Error("[*]Mysql close error", err)
+	}
+	logger.Blue("[*]Mysql close success")
+	// 关闭 redis 连接.
+	if err := DB().RdbClose(); err == nil {
+		logger.Error("[*]Redis close error", err)
+	}
+	logger.Blue("[*]Redis close success")
 }

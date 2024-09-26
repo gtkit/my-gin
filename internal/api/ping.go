@@ -1,4 +1,4 @@
-package handler
+package api
 
 import (
 	"fmt"
@@ -6,6 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/gtkit/json"
+
+	resp "my_gin/internal/pkg/response"
 )
 
 func (h *handler) Ping(c *gin.Context) {
@@ -45,13 +47,8 @@ func (h *handler) Ping(c *gin.Context) {
 	fmt.Println("----jsonMsg:", string(jsonMsg))
 	json.CheckJSON()
 
-	c.JSON(200, gin.H{
+	resp.Ok(c, gin.H{
 		"code": 0,
 		"msg":  "pong",
 	})
-
-}
-
-func (h *handler) DoPing(c *gin.Context) {
-	fmt.Println("-----do ping -----")
 }

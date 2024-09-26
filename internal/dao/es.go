@@ -6,7 +6,7 @@ import (
 	"github.com/gtkit/logger"
 	"github.com/olivere/elastic/v7"
 
-	"ydsd_gin/config"
+	"my_gin/config"
 )
 
 func initEsClient() *elastic.Client {

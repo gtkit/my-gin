@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gtkit/verify"
 
-	"ydsd_gin/internal/pkg/response"
+	"my_gin/internal/pkg/response"
 )
 
 type OrderParams struct {

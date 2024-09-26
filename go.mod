@@ -1,4 +1,4 @@
-module ydsd_gin
+module my_gin
 
 go 1.22
 
@@ -15,11 +15,11 @@ require (
 	github.com/go-redis/redis_rate/v10 v10.0.1
 	github.com/google/uuid v1.6.0
 	github.com/gtkit/encry v1.0.9
-	github.com/gtkit/goerr v1.1.0
+	github.com/gtkit/goerr v1.1.4
 	github.com/gtkit/goes v1.0.5
 	github.com/gtkit/golimit v1.0.2
 	github.com/gtkit/gormlog v1.0.5
-	github.com/gtkit/logger v1.2.1
+	github.com/gtkit/logger v1.2.6
 	github.com/gtkit/orm v1.0.0
 	github.com/gtkit/redis v1.1.8
 	github.com/gtkit/verify v1.0.6
@@ -56,6 +56,7 @@ require (
 	github.com/cloudwego/iasm v0.2.0 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/gtkit/asynqx v1.0.2 // indirect
+	github.com/gtkit/stringx v1.0.8 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	golang.org/x/sync v0.7.0 // indirect
 )

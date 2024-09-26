@@ -1,12 +1,12 @@
 // @Author 2023/11/3 15:10:00
-package handler
+package api
 
 import (
 	"fmt"
 
 	"google.golang.org/protobuf/proto"
 
-	"ydsd_gin/protobuf/pb"
+	"my_gin/protobuf/pb"
 )
 
 // var _ IProtoc = (*MessageBase)(nil)

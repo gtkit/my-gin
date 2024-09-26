@@ -9,7 +9,7 @@ import (
 
 	"github.com/gtkit/logger"
 
-	"ydsd_gin/config"
+	"my_gin/config"
 )
 
 func initMysql() *gorm.DB {

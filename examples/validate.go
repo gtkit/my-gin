@@ -10,7 +10,7 @@ import (
 	"github.com/gtkit/goerr"
 	"github.com/gtkit/verify"
 
-	"ydsd_gin/internal/pkg/response"
+	"my_gin/internal/pkg/response"
 )
 
 type SignUpParam struct {

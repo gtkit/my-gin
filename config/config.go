@@ -10,8 +10,8 @@ import (
 	"github.com/spf13/cast"
 	"github.com/spf13/viper"
 
-	"ydsd_gin/internal/pkg/env"
-	"ydsd_gin/tools/utils"
+	"my_gin/internal/pkg/env"
+	"my_gin/tools/utils"
 )
 
 var (

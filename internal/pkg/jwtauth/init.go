@@ -3,7 +3,7 @@ package jwt
 import (
 	"github.com/gtkit/encry/jwt"
 
-	"ydsd_gin/config"
+	"my_gin/config"
 )
 
 func InitJwt() {

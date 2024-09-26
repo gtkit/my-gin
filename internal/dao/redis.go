@@ -3,7 +3,7 @@ package dao
 import (
 	"github.com/gtkit/redis"
 
-	"ydsd_gin/config"
+	"my_gin/config"
 )
 
 func initRedisCollection() map[int]*redis.Redisclient {

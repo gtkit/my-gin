@@ -1,7 +1,7 @@
 package setup
 
 import (
-	"ydsd_gin/config"
+	"my_gin/config"
 
 	"github.com/spf13/viper"
 )

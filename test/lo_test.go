@@ -6,7 +6,7 @@ import (
 
 	"github.com/samber/lo"
 
-	"ydsd_gin/tools/utils"
+	"my_gin/tools/utils"
 )
 
 func TestStrLo(t *testing.T) {

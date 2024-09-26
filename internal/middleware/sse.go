@@ -9,8 +9,8 @@ import (
 	"github.com/gtkit/goerr"
 	"github.com/gtkit/logger"
 
-	"ydsd_gin/config"
-	"ydsd_gin/internal/model"
+	"my_gin/config"
+	"my_gin/internal/model"
 )
 
 const AuthErrCode = 401
@@ -65,7 +65,7 @@ func SseAuth() gin.HandlerFunc {
 		// parseToken 解析token包含的信息
 		claims, err := j.ParseToken(token)
 		if err != nil {
-			if goerr.Is(err, jwt.TokenExpired) {
+			if goerr.Is(err, jwt.ErrTokenExpired) {
 				info := model.SseMsg{
 					Code: AuthErrCode,
 					Msg:  "授权已过期, 请重新登录",

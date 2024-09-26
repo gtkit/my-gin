@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"ydsd_gin/internal/pkg/sign"
+	"my_gin/internal/pkg/sign"
 )
 
 const (
